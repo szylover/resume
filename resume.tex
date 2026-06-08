@@ -91,23 +91,19 @@
 {负责 OneCopilotMobile (OCM) Android SDK 开发，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
 
 \begin{itemize}
-  \item 实现 quote 引用内容作为结构化 annotation 传递给 Sydney 后端，支持用户选中文本作为 Copilot 对话上下文
-  \item 参与 Copilot Runtime 基础设施维护与迭代：配置体系、Feature Gate、GPT-5 模型切换、富响应渲染等
-  \item 参与 Realtime Voice 链路，修复 Private Mode 下 voice warmup 的竞态 bug，重构状态管理
-  \item 为 WebSocket 通信（StreamHub）接入合规 HttpClient，实现 agent / 非 agent 请求的双通道路由
-  \item 实现图片上传的 Notice \& Consent 流程（Jetpack Compose），覆盖 Gallery / Camera / Image Edit 三条入口
-  \item 负责 SDK 版本发布、跨模块兼容性维护、ECS rollout 审批
+  \item 负责 OCM Android SDK 的日常开发与平台工程：版本发布、宿主集成支持、跨模块兼容性维护、ECS rollout 审批与 Feature Flag 管理
+  \item 参与 Copilot Runtime 基础设施迭代：配置体系、Feature Gate、GPT-5 模型切换、富响应渲染、Realtime Voice 链路等多个方向
+  \item 独立交付多个功能模块：quote 上下文注入、WebSocket 合规路由、图片上传 Consent 流程等
 \end{itemize}
 
 % ── Outlook ──
 \stage{Outlook Android — Copilot Integration \& Search}{2024 -- 2025}
-{转入 Outlook Mobile 团队，负责 Outlook Android 端的 Copilot 集成与搜索体验优化。}
+{转入 Outlook Mobile 团队，负责 Outlook Android 端的 Copilot 集成与搜索体验。}
 
 \begin{itemize}
-  \item 负责 Outlook 搜索模块开发：实现 People / Files / Events tab 渲染、空结果状态 UI、SERP 性能遥测
-  \item 实现 Copilot Page UX 与自定义消息渲染框架
-  \item 实现 Intune 企业策略检查（图片下载前校验管控状态）、SafeLink 安全链接集成
-  \item 修复 Free 用户图片上传数量限制绕过问题
+  \item 负责 Outlook 搜索模块：People / Files / Events 多 tab 架构、结果渲染、性能遥测
+  \item 实现 Copilot Page 完整 UX，包括自定义消息渲染框架与对话交互
+  \item 负责安全合规相关开发：Intune 企业策略校验、SafeLink 集成、资源访问控制修复
 \end{itemize}
 
 % ── Teams MeetApp ──
@@ -115,22 +111,19 @@
 {负责 MeetApp 全栈开发（React/TypeScript），为 Teams Desktop 用户提供 AI 增强的会议管理体验。}
 
 \begin{itemize}
-  \item 从零构建 MeetApp 核心架构：Graph / Substrate API 客户端、Insight Builder、Calendar 数据管道
-  \item 实现会议 Recap 导航系统，开发 Upcoming / Recent / Missed 分类视图，集成 AI Tasks 计数与 unfamiliar people insights
-  \item 实现 MeetApp 内 Copilot 入口，集成 BizChat 对话流（streaming answer），实现 CrossMeetingCatchUp 跨会议 AI 摘要
-  \item 构建实时调试工具（Debug Tool），建立性能遥测体系（Kusto / Augloop），排查内存泄漏与导航延迟问题
-  \item 负责多轮 Feature Flag rollout、Channel Meeting 支持、高对比度 / 无障碍适配
+  \item 从零构建 MeetApp 产品：设计核心架构（Graph / Substrate API 客户端、数据管道），开发完整的会议列表、Recap 导航、AI 摘要等功能
+  \item 实现 MeetApp 内 Copilot 入口与跨会议 AI 摘要（CrossMeetingCatchUp），集成 BizChat streaming 对话流
+  \item 建立性能遥测体系（Kusto / Augloop），构建调试工具，排查内存泄漏与导航延迟等生产问题
 \end{itemize}
 
 % ── Voice / Cortana ──
 \stage{语音助手与对话式 AI 体验（Cortana / PME）}{2019 -- 2022}
-{先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up、Play My Messages 的 Android 端开发。}
+{先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up、Play My Messages 三个语音产品的 Android 端开发。}
 
 \begin{itemize}
-  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成，开发 React Native 原生模块：KWS 关键词唤醒（Hey Cortana）、AEC 回声消除、TTS 语音播放、麦克风管理
-  \item 实现消息操作 API（Like / Reply / Mark as Read），桥接到 Teams Mobile SDK messaging API
-  \item 在 Outlook 实现 TTS 流式邮件播报与语音指令 triage（回复/标记/归档），优化 session 稳定性（重试、网络中断恢复）
-  \item 主导 Hermes 引擎迁移（JS Bundle 预编译）与 SDX 架构迁移，支持 Gov Cloud 部署
+  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成：React Native 原生桥接、Cortana 语音交互（KWS 唤醒 / AEC / TTS）、消息 triage 操作
+  \item 在 Outlook 实现 TTS 流式邮件播报与语音指令处理，负责 session 稳定性优化（重试、断网恢复、状态管理）
+  \item 主导 Hermes 引擎迁移与 SDX 架构重构，支持 Gov Cloud 部署
 \end{itemize}
 
 % ── Build Infra ──
@@ -138,10 +131,8 @@
 {加入 SOX Build vNext 团队，负责 SharePoint Online 大规模 Monorepo 的构建系统现代化。}
 
 \begin{itemize}
-  \item 主导 Domino (BuildXL) 构建引擎迁移，解决 metabuild、OACR 静态分析等兼容性问题
-  \item 优化增量构建管道，处理依赖哈希、构建缓存失效等生产级构建问题
-  \item 负责跨分支集成（Forward Integration）：devmain → SpoRel 的 FI / merge 与验证
-  \item 作为 Build Break DRI，执行 backout、重启构建、协调跨团队修复
+  \item 主导从传统构建系统到 Domino (BuildXL) 的迁移，优化增量构建管道
+  \item 负责跨分支集成（Forward Integration）与 Build Break 响应（DRI），维护构建稳定性
 \end{itemize}
 
 % ══════════════════════════════════════════
