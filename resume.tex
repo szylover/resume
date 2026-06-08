@@ -87,16 +87,27 @@
 \textbf{\large Microsoft} \hfill Software Engineer 2 \quad $|$ \quad 2017.06 -- 至今
 
 % ── Copilot Mobile Runtime ──
-\stage{M365 Copilot Mobile Platform / Runtime}{2024 -- 至今}
-{负责 OneCopilotMobile (OCM) Android SDK 架构与平台工程，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
+\stage{M365 Copilot Mobile Platform / Runtime — OCM}{2025 -- 至今}
+{负责 OneCopilotMobile (OCM) Android SDK 开发，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
 
 \begin{itemize}
-  \item 设计移动端 AI Context Pipeline，将宿主应用的邮件/文档/选中内容标准化为结构化上下文，注入 Copilot 推理链路，实现 AI 上下文与 UI 层的解耦
-  \item 负责 Copilot Runtime 核心基础设施：配置管理、服务路由、Feature Gate 灰度体系、模型切换等，支撑 GPT-5 集成与下一代富响应渲染
-  \item 参与实时语音 AI 链路建设，优化连接预热延迟，修复异步状态竞态，保障生产环境可靠性；作为 Reliability Incident Owner 处理跨产品线生产事故
-  \item 设计合规性双通道路由架构，为 WebSocket 通信引入企业级安全拦截（SSL Pinning / DLP / 审计），消除合规盲区
-  \item 设计并交付图片上传合规流程与声明式授权拦截，平衡产品速度与隐私合规要求
-  \item 负责 SDK 版本发布、宿主集成支持、跨模块兼容性维护与 Feature Flag 生命周期管理
+  \item 实现 Quote Selected Content 功能：将用户选中的邮件/文档内容作为结构化 annotation 传递给后端，通过 postDecorationTransform 在宿主装饰后注入，解耦 AI 上下文与 UI 层
+  \item 参与 Copilot Runtime 基础设施维护：BizChatConfig、HostConfig、Feature Gate rollout、GPT-5 模型切换等
+  \item 参与 Realtime Chat Voice 链路，修复 voice warmup 在 Private Mode 下的竞态问题，重构状态管理保证原子性
+  \item 为 StreamHub WebSocket 连接引入合规 HttpClient（SSL Pinning / DLP / 审计日志），设计 RoutingChatServiceFactory 双通道路由架构
+  \item 实现 MSA 用户图片上传的 Notice \& Consent 流程，基于 Jetpack Compose 构建声明式 consent 拦截，覆盖 Gallery / Camera / Image Edit 三条路径
+  \item 负责 OCM SDK 版本发布、跨模块依赖兼容性维护、ECS rollout 审批
+\end{itemize}
+
+% ── Outlook ──
+\stage{Outlook Android — Copilot Integration \& Search}{2024 -- 2025}
+{转入 Outlook Mobile 团队，负责 Outlook Android 端的 Copilot 集成与搜索体验优化。}
+
+\begin{itemize}
+  \item 负责 Outlook 搜索模块开发：实现 People / Files / Events tab 渲染、空结果状态 UI、SERP 性能遥测
+  \item 实现 Copilot Page UX 与自定义消息渲染框架
+  \item 实现 Intune 企业策略检查（图片下载前校验管控状态）、SafeLink 安全链接集成
+  \item 修复 Free 用户图片上传数量限制绕过问题
 \end{itemize}
 
 % ── Teams MeetApp ──
@@ -104,28 +115,33 @@
 {负责 MeetApp 全栈开发（React/TypeScript），为 Teams Desktop 用户提供 AI 增强的会议管理体验。}
 
 \begin{itemize}
-  \item 从零构建 MeetApp 核心架构：API 客户端、会议分类视图（Upcoming / Recent / Missed）、AI 会议摘要导航系统
-  \item 设计并实现 MeetApp 内 Copilot 入口，集成 BizChat 对话流与跨会议 AI 摘要生成
-  \item 构建实时调试工具与性能遥测体系，排查内存泄漏、导航延迟等复杂问题，驱动数据化性能优化
-  \item 负责多轮 Feature Flag 灰度发布、无障碍适配与 Channel Meeting 等产品迭代
+  \item 从零构建 MeetApp 核心架构：Graph / Substrate API 客户端、Insight Builder、Calendar 数据管道
+  \item 实现会议 Recap 导航系统，开发 Upcoming / Recent / Missed 分类视图，集成 AI Tasks 计数与 unfamiliar people insights
+  \item 实现 MeetApp 内 Copilot 入口，集成 BizChat 对话流（streaming answer），实现 CrossMeetingCatchUp 跨会议 AI 摘要
+  \item 构建实时调试工具（Debug Tool），建立性能遥测体系（Kusto / Augloop），排查内存泄漏与导航延迟问题
+  \item 负责多轮 Feature Flag rollout、Channel Meeting 支持、高对比度 / 无障碍适配
 \end{itemize}
 
 % ── Voice / Cortana ──
-\stage{语音助手与对话式 AI 体验}{2019 -- 2022}
-{先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up 等语音驱动生产力功能的 Android 端开发。}
+\stage{语音助手与对话式 AI 体验（Cortana / PME）}{2019 -- 2022}
+{先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up、Play My Messages 的 Android 端开发。}
 
 \begin{itemize}
-  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成，设计 React Native 原生桥接层，实现语音唤醒、TTS 播放、消息 triage 等完整交互链路
-  \item 在 Outlook 实现 TTS 流式邮件播报，开发语音指令回复/标记/归档等 hands-free 邮件处理能力
-  \item 主导 Hermes 引擎迁移与 SDX 架构迁移，支持 Gov Cloud 部署，提升运行时性能
+  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成，开发 React Native 原生模块：KWS 关键词唤醒（Hey Cortana）、AEC 回声消除、TTS 语音播放、麦克风管理
+  \item 实现消息操作 API（Like / Reply / Mark as Read），桥接到 Teams Mobile SDK messaging API
+  \item 在 Outlook 实现 TTS 流式邮件播报与语音指令 triage（回复/标记/归档），优化 session 稳定性（重试、网络中断恢复）
+  \item 主导 Hermes 引擎迁移（JS Bundle 预编译）与 SDX 架构迁移，支持 Gov Cloud 部署
 \end{itemize}
 
 % ── Build Infra ──
-\stage{SharePoint 构建基础设施}{2017 -- 2019}
-{负责 SharePoint Online 构建系统现代化，支撑大规模 Monorepo 的构建效率与稳定性。}
+\stage{SharePoint Online — 构建基础设施}{2017 -- 2019}
+{加入 SOX Build vNext 团队，负责 SharePoint Online 大规模 Monorepo 的构建系统现代化。}
 
 \begin{itemize}
-  \item 主导 Domino (BuildXL) 构建引擎迁移，优化增量构建管道，负责跨分支集成与构建中断响应
+  \item 主导 Domino (BuildXL) 构建引擎迁移，解决 metabuild、OACR 静态分析等兼容性问题
+  \item 优化增量构建管道，处理依赖哈希、构建缓存失效等生产级构建问题
+  \item 负责跨分支集成（Forward Integration）：devmain → SpoRel 的 FI / merge 与验证
+  \item 作为 Build Break DRI，执行 backout、重启构建、协调跨团队修复
 \end{itemize}
 
 % ══════════════════════════════════════════
