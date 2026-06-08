@@ -72,15 +72,68 @@
   \end{minipage}
 \end{center}
 
-\vspace{-4pt}
+\vspace{-2pt}
+
+{\small
+8+ 年 Microsoft 移动端平台工程经验，专注 Android 架构、SDK/Runtime 设计与 AI 产品集成。
+技术主线从构建基础设施到语音助手到会议智能平台到 M365 Copilot 移动端 Runtime，
+是 Microsoft 365 Copilot Mobile Runtime 的核心基础设施工程师之一。
+}
+
+% ══════════════════════════════════════════
+\section{工作经历}
+
+\noindent
+\textbf{\large Microsoft} \hfill Software Engineer 2 \quad $|$ \quad 2017.06 -- 至今
+
+% ── Copilot Mobile Runtime ──
+\stage{M365 Copilot Mobile Platform / Runtime}{2024 -- 至今}
+{负责 OneCopilotMobile (OCM) Android SDK 架构与平台工程，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
+
+\begin{itemize}
+  \item 设计移动端 AI Context Pipeline，将宿主应用的邮件/文档/选中内容标准化为结构化上下文，注入 Copilot 推理链路，实现 AI 上下文与 UI 层的解耦
+  \item 负责 Copilot Runtime 核心基础设施：配置管理、服务路由、Feature Gate 灰度体系、模型切换等，支撑 GPT-5 集成与下一代富响应渲染
+  \item 参与实时语音 AI 链路建设，优化连接预热延迟，修复异步状态竞态，保障生产环境可靠性；作为 Reliability Incident Owner 处理跨产品线生产事故
+  \item 设计合规性双通道路由架构，为 WebSocket 通信引入企业级安全拦截（SSL Pinning / DLP / 审计），消除合规盲区
+  \item 设计并交付图片上传合规流程与声明式授权拦截，平衡产品速度与隐私合规要求
+  \item 负责 SDK 版本发布、宿主集成支持、跨模块兼容性维护与 Feature Flag 生命周期管理
+\end{itemize}
+
+% ── Teams MeetApp ──
+\stage{Teams MeetApp — AI 会议智能平台}{2022 -- 2024}
+{负责 MeetApp 全栈开发（React/TypeScript），为 Teams Desktop 用户提供 AI 增强的会议管理体验。}
+
+\begin{itemize}
+  \item 从零构建 MeetApp 核心架构：API 客户端、会议分类视图（Upcoming / Recent / Missed）、AI 会议摘要导航系统
+  \item 设计并实现 MeetApp 内 Copilot 入口，集成 BizChat 对话流与跨会议 AI 摘要生成
+  \item 构建实时调试工具与性能遥测体系，排查内存泄漏、导航延迟等复杂问题，驱动数据化性能优化
+  \item 负责多轮 Feature Flag 灰度发布、无障碍适配与 Channel Meeting 等产品迭代
+\end{itemize}
+
+% ── Voice / Cortana ──
+\stage{语音助手与对话式 AI 体验}{2019 -- 2022}
+{先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up 等语音驱动生产力功能的 Android 端开发。}
+
+\begin{itemize}
+  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成，设计 React Native 原生桥接层，实现语音唤醒、TTS 播放、消息 triage 等完整交互链路
+  \item 在 Outlook 实现 TTS 流式邮件播报，开发语音指令回复/标记/归档等 hands-free 邮件处理能力
+  \item 主导 Hermes 引擎迁移与 SDX 架构迁移，支持 Gov Cloud 部署，提升运行时性能
+\end{itemize}
+
+% ── Build Infra ──
+\stage{SharePoint 构建基础设施}{2017 -- 2019}
+{负责 SharePoint Online 构建系统现代化，支撑大规模 Monorepo 的构建效率与稳定性。}
+
+\begin{itemize}
+  \item 主导 Domino (BuildXL) 构建引擎迁移，优化增量构建管道，负责跨分支集成与构建中断响应
+\end{itemize}
 
 % ══════════════════════════════════════════
 \section{教育背景}
 
 \noindent
 \textbf{浙江大学} \hfill 2014 -- 2017\\
-计算机科学与技术 硕士\\
-研究方向：移动安全、移动计算、BYOD 访问控制。导师课题组参与移动端用户认证与应用安全管理研究。
+计算机科学与技术 硕士 \quad\textcolor{accent}{研究方向：移动安全、BYOD 访问控制}
 
 \vspace{6pt}
 \noindent
@@ -101,170 +154,13 @@
 \end{enumerate}
 
 % ══════════════════════════════════════════
-\section{工作经历}
-
-\noindent
-\textbf{\large Microsoft} \hfill Software Engineer 2 \quad $|$ \quad 2017.06 -- 至今
-
-\vspace{4pt}
-\noindent
-\noindent
-8+ 年 Microsoft 移动端平台工程经验，技术主线从 \textbf{Mobile Client Infra} 到 \textbf{Office/Outlook Ecosystem} 到 \textbf{AI-enabled Mobile Platform} 到 \textbf{Copilot Runtime + Realtime AI}，是 Microsoft 365 Copilot Mobile Runtime 的核心基础设施工程师之一。
-
-% ── Stage 7 ──
-\stage{阶段 7：Microsoft 365 Copilot Mobile Runtime — Union / OCM}{2025 -- 至今}
-{负责 OneCopilotMobile (OCM) Android SDK 架构与开发，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
-
-\projectblock{AI Context Pipeline \& Structured Annotation}
-\begin{itemize}
-  \item 设计 AI Context Engineering 层：将用户选中的邮件/文档内容结构化为 Sydney annotation，注入 Copilot reasoning context
-  \item 实现 SelectedContextMetadata / Entity Annotation 映射，通过 postDecorationTransform 在宿主装饰后注入，解耦 AI 上下文与 UI 层
-\end{itemize}
-
-\projectblock{Copilot Runtime Infra}
-\begin{itemize}
-  \item 负责 BizChat Runtime 核心基础设施：FeatureGator、BizChatConfig、HostConfig、SydneyServiceConfigProvider
-  \item 参与 GPT-5 集成、Model Switcher、Query Formulation、Feature Gate rollout 等 AI 能力基础设施
-  \item 负责 Copilot Artifacts / Rich Response / Loop 渲染等下一代 Copilot UX Runtime 方向
-\end{itemize}
-
-\projectblock{Realtime AI Voice \& Reliability}
-\begin{itemize}
-  \item 参与 Realtime Chat Voice 链路建设，优化 voice ready latency，处理 realtime session 稳定性
-  \item 修复 voice warmup 在 Private Mode 下的 race condition，重构 reactive flow 管道中的状态原子性
-  \item 作为 BizChat Reliability Incident Owner 之一，处理跨 Outlook/Teams/Union 的生产级 IcM
-\end{itemize}
-
-\projectblock{合规性迁移 (FluxV4)}
-\begin{itemize}
-  \item 为 StreamHub WebSocket 引入合规 HttpClient，确保 SSL Pinning、DLP、审计日志等安全拦截器生效
-  \item 设计双通道路由架构 RoutingChatServiceFactory，跨 SDK 与宿主应用两层实现依赖注入链
-\end{itemize}
-
-\projectblock{Image Upload Consent 系统}
-\begin{itemize}
-  \item 设计并实现 MSA 用户图片上传的完整 Notice \& Consent 流程，覆盖 Gallery/Camera/Image Edit 三条路径
-  \item 基于 Jetpack Compose 构建声明式 consent 拦截，支持 Feature Gate 灰度、Storage 持久化、异步 Share Intent
-\end{itemize}
-
-\projectblock{OCM SDK 平台工程}
-\begin{itemize}
-  \item 负责 OCM Android SDK 版本发布、Host Config 抽象、跨模块依赖兼容性维护
-  \item ECS rollout 审批与 Feature Flag 生命周期管理（Helix / Taxonomy）
-\end{itemize}
-
-% ── Stage 6 ──
-\stage{阶段 6：Outlook Android — Copilot Integration}{2024.06 -- 2024.12}
-{转入 Outlook Mobile 团队，负责 Outlook Android 端 Copilot 集成与搜索体验。}
-
-\projectblock{Outlook Search \& Copilot}
-\begin{itemize}
-  \item 负责 Outlook 搜索模块：People/Files/Events tab 渲染、空结果 UI、SERP 性能遥测
-  \item 实现 Copilot Page UX、自定义消息渲染框架
-  \item 安全合规：Intune 企业策略检查、SafeLink 集成
-\end{itemize}
-
-% ── Stage 5 ──
-\stage{阶段 5：Teams MeetApp — Meeting Artifact Platform}{2022.07 -- 2024.05}
-{转入 CMD (Calling Meeting Devices) China 团队，负责 MeetApp 的全栈开发（React/TypeScript），为 Teams Desktop 用户提供 AI 增强的会议管理体验。}
-
-\projectblock{会议智能平台 (Meeting Content Platform)}
-\begin{itemize}
-  \item 从零构建 MeetApp 核心架构：Graph/Substrate API 客户端、Insight Builder、Calendar 数据管道
-  \item 实现会议 Recap 导航系统：支持从 MeetApp 跳转到会议 Recap 的 AI Notes / @Mentions / Tasks / Recordings
-  \item 开发 Upcoming / Recent / Missed 会议分类视图，集成 AI Tasks 计数、unfamiliar people insights 等智能功能
-\end{itemize}
-
-\projectblock{Copilot in MeetApp}
-\begin{itemize}
-  \item 设计并实现 MeetApp 内 Copilot 入口，集成 BizChat 对话流（streaming answer、prompt engineering）
-  \item 实现 CrossMeetingCatchUp：利用 GPT-4 生成跨会议摘要
-  \item 对接 Augloop 进行数据分析与 prompt 工程优化
-\end{itemize}
-
-\projectblock{性能与可靠性}
-\begin{itemize}
-  \item 构建实时调试工具（Debug Tool）：支持 UI 日志收集、毫秒级时间戳、日志下载
-  \item 排查内存泄漏、导航延迟、on-prem/cloud 用户切换等复杂问题
-  \item 建立性能遥测体系，对接 Kusto 与 Augloop 进行数据驱动优化
-\end{itemize}
-
-\projectblock{功能迭代与 Rollout}
-\begin{itemize}
-  \item 负责多轮 Feature Flag rollout（verifyRecapWithConversationAPI、enableRecentCopilotEntry 等）
-  \item 支持 Channel Meeting、90 天 Recent 扩展、Short URL 处理等产品需求
-  \item 高对比度 / 无障碍适配（Missed pill 样式、键盘导航等）
-\end{itemize}
-
-% ── Stage 4 ──
-\stage{阶段 4：Teams Cortana — Catch Me Up / Play My Messages}{2021.01 -- 2022.06}
-{加入 Skills \& Cortana / Distracted Experience 团队，负责 Catch Me Up (CMU) 和 PMM (Play My Messages) 的 Teams Android 端开发。332 个 work item，覆盖从 POC 到 GA 全生命周期。}
-
-\projectblock{Catch Me Up — Teams Android 端核心开发}
-\begin{itemize}
-  \item 从 POC 到生产：实现 CMU 在 Teams Android 的完整集成，包括 App Module 定义、App Tray 入口、ECS 配置、React Native 桥接
-  \item 开发 React Native 原生模块：CortanaModule（KWS 关键词唤醒）、CatchMeUp Shell（消息操作）、UserStoreModule（缓存）
-  \item 实现消息操作 API：Like / Reply / Mark as Read，桥接到 Teams Mobile SDK messaging API
-  \item 支持 Cortana 语音交互：Hey Cortana 唤醒、AEC（回声消除）、TTS 语音播放、麦克风管理
-\end{itemize}
-
-\projectblock{PMM (Play My Messages)}
-\begin{itemize}
-  \item 实现消息点赞、回复、标记已读等 triage actions 的原生模块
-  \item 开发群聊头像、用户在线状态、振动反馈等 UX 功能
-\end{itemize}
-
-\projectblock{平台工程}
-\begin{itemize}
-  \item Hermes 引擎迁移：将 CMU JS Bundle 迁移到 Hermes 预编译版本
-  \item SDX 迁移：将 CatchMeUp 从旧架构迁移到 SDX，支持 Gov Cloud 部署
-  \item 性能遥测：Android 端 perf metrics、shaker dismiss event、feedback category
-  \item Dev Settings 系统：自定义 flights、Cortana endpoint 切换、Dev/Canary 模式
-\end{itemize}
-
-% ── Stage 3 ──
-\stage{阶段 3：Outlook Mobile — PME / Play My Email}{2019 -- 2021}
-{加入 Outlook Mobile PME (People Mail Events) 团队，负责 Play My Email 功能的 Android 端开发，为通勤场景提供 AI 驱动的语音邮件播报体验。}
-
-\projectblock{Play My Email — 语音邮件播报}
-\begin{itemize}
-  \item 实现 TTS Streaming：在 Outlook Commute 场景中支持语音流式播放邮件内容，优化播放延迟与流畅度
-  \item 开发邮件 triage 操作：语音指令回复、标记、归档，支持 hands-free 邮件处理
-  \item 负责 PME session 稳定性优化（重试机制、网络中断恢复、播放状态管理）
-\end{itemize}
-
-\projectblock{PME 平台工程}
-\begin{itemize}
-  \item 参与 PME 上下文智能层建设：统一 Mail / Calendar / Contacts / Meetings 数据源
-  \item 对接 Cortana 语音引擎，实现邮件内容的自然语言摘要与播报
-  \item 性能遥测与可靠性监控
-\end{itemize}
-
-% ── Stage 2 ──
-\stage{阶段 2：SharePoint Online — SOX Build Infrastructure}{2017 -- 2019}
-{加入 SOX (SharePoint Online Experience) Build vNext 团队，负责 SharePoint 构建系统现代化。}
-
-\begin{itemize}
-  \item \textbf{Domino Build Engine 迁移}：将 SharePoint 大型代码库从传统构建系统迁移至 Domino（后更名 BuildXL），解决 metabuild、OACR 静态分析等兼容性问题
-  \item \textbf{构建加速与稳定性}：优化增量构建管道，处理 Pip 依赖哈希、构建缓存失效等生产级构建问题
-  \item \textbf{跨分支集成 (Forward Integration)}：负责 devmain → SpoRel 的 FI/merge 与验证，维护分支间构建一致性
-  \item \textbf{构建中断处理 (Build Break DRI)}：作为 build break 响应人，执行 backout、重启构建、协调跨团队修复
-\end{itemize}
-
-% ══════════════════════════════════════════
 \section{技术技能}
 
 \begin{tabularx}{\textwidth}{@{} >{\bfseries}l X @{}}
-语言       & Kotlin, Java, TypeScript, React, Python, Rust \\[3pt]
-Android    & Jetpack Compose, Kotlin Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
-Web/Desktop & React, TypeScript, Teams SDK, React Native Bridge, Hermes Engine \\[3pt]
-AI Runtime & GPT Integration, AI Context Pipeline, Prompt Engineering, Model Switching, Feature Gating, Augloop \\[3pt]
-架构       & MVVM, Clean Architecture, SDK 设计, 响应式编程, 依赖注入, Host/Plugin 架构 \\[3pt]
-Realtime   & WebSocket, Streaming, Voice Session (TTS/AEC/KWS), Transcription Pipeline \\[3pt]
-构建系统   & Domino/BuildXL, OACR, Forward Integration, Monorepo CI/CD \\[3pt]
-安全合规   & SSL Pinning, DLP, Intune MDM, 审计日志, SafeLink \\[3pt]
-平台工程   & ECS Rollout, Feature Flag Infra, Telemetry/Kusto, Incident Management \\[3pt]
-工具       & Azure DevOps, Git Monorepo, Gradle, ADB, Graph API, Substrate API \\
+Android 平台  & Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
+架构与 SDK    & MVVM, Clean Architecture, SDK/Runtime 设计, 模块化, 依赖注入, Host/Plugin 架构, Feature Gate 体系 \\[3pt]
+AI 与产品集成 & Copilot 集成, AI Context Pipeline, 语音交互 (TTS/AEC/KWS), 合规性 UX, 模型切换 \\[3pt]
+工程实践      & Monorepo CI/CD, 构建系统, 性能遥测/Kusto, 灰度发布, 生产事故响应, 跨团队协作 \\
 \end{tabularx}
 
 \end{document}
