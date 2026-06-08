@@ -91,12 +91,12 @@
 {负责 OneCopilotMobile (OCM) Android SDK 开发，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
 
 \begin{itemize}
-  \item 实现 Quote Selected Content 功能：将用户选中的邮件/文档内容作为结构化 annotation 传递给后端，通过 postDecorationTransform 在宿主装饰后注入，解耦 AI 上下文与 UI 层
-  \item 参与 Copilot Runtime 基础设施维护：BizChatConfig、HostConfig、Feature Gate rollout、GPT-5 模型切换等
-  \item 参与 Realtime Chat Voice 链路，修复 voice warmup 在 Private Mode 下的竞态问题，重构状态管理保证原子性
-  \item 为 StreamHub WebSocket 连接引入合规 HttpClient（SSL Pinning / DLP / 审计日志），设计 RoutingChatServiceFactory 双通道路由架构
-  \item 实现 MSA 用户图片上传的 Notice \& Consent 流程，基于 Jetpack Compose 构建声明式 consent 拦截，覆盖 Gallery / Camera / Image Edit 三条路径
-  \item 负责 OCM SDK 版本发布、跨模块依赖兼容性维护、ECS rollout 审批
+  \item 实现 quote 引用内容作为结构化 annotation 传递给 Sydney 后端，支持用户选中文本作为 Copilot 对话上下文
+  \item 参与 Copilot Runtime 基础设施维护与迭代：配置体系、Feature Gate、GPT-5 模型切换、富响应渲染等
+  \item 参与 Realtime Voice 链路，修复 Private Mode 下 voice warmup 的竞态 bug，重构状态管理
+  \item 为 WebSocket 通信（StreamHub）接入合规 HttpClient，实现 agent / 非 agent 请求的双通道路由
+  \item 实现图片上传的 Notice \& Consent 流程（Jetpack Compose），覆盖 Gallery / Camera / Image Edit 三条入口
+  \item 负责 SDK 版本发布、跨模块兼容性维护、ECS rollout 审批
 \end{itemize}
 
 % ── Outlook ──
