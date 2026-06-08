@@ -9,6 +9,8 @@
 \usepackage{enumitem}
 \usepackage{hyperref}
 \usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{wrapfig}
 \usepackage{tabularx}
 \usepackage{fancyhdr}
 
@@ -57,9 +59,17 @@
 
 % ── Header ──
 \begin{center}
-  {\LARGE\bfseries 邵正悦 \quad Zhengyue Shao}\\[6pt]
-  {\large Senior Android Platform Engineer \textperiodcentered{} Microsoft}\\[4pt]
-  \textcolor{accent}{\href{mailto:zheshao@microsoft.com}{zheshao@microsoft.com}}
+  \begin{minipage}[c]{0.75\textwidth}
+    \centering
+    {\LARGE\bfseries 邵正悦 \quad Zhengyue Shao}\\[6pt]
+    {\large Senior Android Platform Engineer \textperiodcentered{} Microsoft}\\[4pt]
+    \textcolor{accent}{\href{mailto:zheshao@microsoft.com}{zheshao@microsoft.com}}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{0.2\textwidth}
+    \raggedleft
+    \includegraphics[width=2.8cm]{photo.jpg}
+  \end{minipage}
 \end{center}
 
 \vspace{-4pt}
