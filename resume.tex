@@ -1,91 +1,173 @@
-% !TEX program = xelatex
+%!TEX program = xelatex
+\documentclass[11pt,a4paper]{article}
 
-\documentclass{resume}
+% ── Packages ──
+\usepackage[margin=0.7in]{geometry}
 \usepackage{xeCJK}
-\setCJKmainfont[BoldFont=Noto Sans CJK SC Bold]{Noto Serif CJK SC}
-\setCJKsansfont{Noto Sans CJK SC}
-\setCJKmonofont{Noto Sans Mono CJK SC}
+\usepackage{fontspec}
+\usepackage{titlesec}
+\usepackage{enumitem}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{wrapfig}
+\usepackage{tabularx}
+\usepackage{fancyhdr}
 
+% ── Fonts ──
+\setCJKmainfont{AR PL SungtiL GB}[BoldFont=AR PL KaitiM GB]
+\setmainfont{DejaVu Sans}[BoldFont=DejaVu Sans Bold, ItalicFont=DejaVu Sans Oblique]
+
+% ── Colors ──
+\definecolor{primary}{RGB}{31, 78, 121}
+\definecolor{accent}{RGB}{89, 89, 89}
+
+% ── Hyperlink ──
+\hypersetup{colorlinks=true, linkcolor=primary, urlcolor=primary}
+
+% ── Section Formatting ──
+\titleformat{\section}{\Large\bfseries\color{primary}}{}{0em}{}[\titlerule]
+\titleformat{\subsection}{\large\bfseries}{}{0em}{}
+\titleformat{\subsubsection}[runin]{\bfseries}{}{0em}{}
+
+\titlespacing*{\section}{0pt}{12pt}{6pt}
+\titlespacing*{\subsection}{0pt}{10pt}{4pt}
+
+% ── List Style ──
+\setlist[itemize]{leftmargin=1.2em, itemsep=1pt, parsep=0pt, topsep=2pt}
+
+% ── Remove page number ──
+\pagestyle{fancy}
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot[C]{\thepage}
+
+% ── Custom Commands ──
+\newcommand{\stage}[3]{%
+  \vspace{8pt}
+  \noindent\textbf{\color{primary}#1} \hfill \textcolor{accent}{#2}\\[2pt]
+  \textit{#3}
+  \vspace{4pt}
+}
+
+\newcommand{\projectblock}[1]{%
+  \vspace{4pt}\noindent\textbf{#1}\vspace{2pt}
+}
+
+% ══════════════════════════════════════════
 \begin{document}
-\pagenumbering{gobble}
 
-\name{邵正悦 \quad Zhengyue Shao}
+% ── Header ──
+\begin{center}
+  \begin{minipage}[c]{0.75\textwidth}
+    \centering
+    {\LARGE\bfseries 邵正悦 \quad Zhengyue Shao}\\[6pt]
+    {\large Software Engineer 2 \textperiodcentered{} Microsoft}\\[4pt]
+    \textcolor{accent}{\href{mailto:419396971@qq.com}{419396971@qq.com}}
+  \end{minipage}%
+  \hfill
+  \begin{minipage}[c]{0.2\textwidth}
+    \raggedleft
+    \includegraphics[width=2.8cm]{photo.jpg}
+  \end{minipage}
+\end{center}
 
-\basicInfo{
-  \email{419396971@qq.com} \textperiodcentered\
-  \github[szylover]{https://github.com/szylover} \textperiodcentered\
-  \homepage[lovebxy.net]{https://www.lovebxy.net}}
+\vspace{-2pt}
 
-\section{\faBriefcase\ 工作经历}
+{\small
+8+ 年 Microsoft 移动端平台工程经验，专注 Android 架构、SDK/Runtime 设计与 AI 产品集成。
+技术主线从构建基础设施到语音助手到会议智能平台到 M365 Copilot 移动端 Runtime，
+是 Microsoft 365 Copilot Mobile Runtime 的核心基础设施工程师之一。
+}
 
-\datedsubsection{\textbf{Microsoft}}{2017.06 -- 至今}
-\role{Software Engineer 2（SDE2）}{}
+% ══════════════════════════════════════════
+\section{工作经历}
 
-8+ 年移动端平台工程经验，技术主线：构建基础设施 → 语音助手 → 会议智能平台 → M365 Copilot 移动端 Runtime。
+\noindent
+\textbf{\large Microsoft} \hfill Software Engineer 2 \quad $|$ \quad 2017.06 -- 至今
 
-\datedsubsection{\textbf{M365 Copilot Mobile Runtime — OCM}}{2025 -- 至今}
-负责 OneCopilotMobile (OCM) Android SDK 开发，SDK 服务于 OfficeMobile、Outlook、Teams 等宿主应用。
+% ── Copilot Mobile Runtime ──
+\stage{M365 Copilot Mobile Platform / Runtime — OCM}{2025 -- 至今}
+{负责 OneCopilotMobile (OCM) Android SDK 开发，SDK 统一服务于 OfficeMobile、Outlook、Teams 等宿主应用，覆盖数亿用户。}
+
 \begin{itemize}
-  \item 负责 OCM Android SDK 日常开发与平台工程：版本发布、宿主集成支持、跨模块兼容性维护、ECS rollout 审批与 Feature Flag 管理
+  \item 负责 OCM Android SDK 的日常开发与平台工程：版本发布、宿主集成支持、跨模块兼容性维护、ECS rollout 审批与 Feature Flag 管理
   \item 参与 Copilot Runtime 基础设施迭代：配置体系、Feature Gate、GPT-5 模型切换、富响应渲染、Realtime Voice 链路等多个方向
   \item 独立交付多个功能模块：quote 上下文注入、WebSocket 合规路由、图片上传 Consent 流程等
 \end{itemize}
 
-\datedsubsection{\textbf{Outlook Android — Copilot Integration \& Search}}{2024 -- 2025}
-负责 Outlook Android 端 Copilot 集成与搜索体验。
+% ── Outlook ──
+\stage{Outlook Android — Copilot Integration \& Search}{2024 -- 2025}
+{转入 Outlook Mobile 团队，负责 Outlook Android 端的 Copilot 集成与搜索体验。}
+
 \begin{itemize}
   \item 负责 Outlook 搜索模块：People / Files / Events 多 tab 架构、结果渲染、性能遥测
   \item 实现 Copilot Page 完整 UX，包括自定义消息渲染框架与对话交互
-  \item 负责安全合规开发：Intune 企业策略校验、SafeLink 集成、资源访问控制修复
+  \item 负责安全合规相关开发：Intune 企业策略校验、SafeLink 集成、资源访问控制修复
 \end{itemize}
 
-\datedsubsection{\textbf{Teams MeetApp — AI 会议智能平台}}{2022 -- 2024}
-负责 MeetApp 全栈开发（React/TypeScript），为 Teams Desktop 提供 AI 增强的会议管理体验。
+% ── Teams MeetApp ──
+\stage{Teams MeetApp — AI 会议智能平台}{2022 -- 2024}
+{负责 MeetApp 全栈开发（React/TypeScript），为 Teams Desktop 用户提供 AI 增强的会议管理体验。}
+
 \begin{itemize}
-  \item 从零构建 MeetApp 产品：设计核心架构（Graph / Substrate API 客户端、数据管道），开发会议列表、Recap 导航、AI 摘要等完整功能
+  \item 从零构建 MeetApp 产品：设计核心架构（Graph / Substrate API 客户端、数据管道），开发完整的会议列表、Recap 导航、AI 摘要等功能
   \item 实现 MeetApp 内 Copilot 入口与跨会议 AI 摘要（CrossMeetingCatchUp），集成 BizChat streaming 对话流
   \item 建立性能遥测体系（Kusto / Augloop），构建调试工具，排查内存泄漏与导航延迟等生产问题
 \end{itemize}
 
-\datedsubsection{\textbf{语音助手与对话式 AI（Cortana / PME）}}{2019 -- 2022}
-先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up、Play My Messages 三个语音产品的 Android 端。
+% ── Voice / Cortana ──
+\stage{语音助手与对话式 AI 体验（Cortana / PME）}{2019 -- 2022}
+{先后在 Outlook PME 和 Teams Cortana 团队，负责 Play My Email、Catch Me Up、Play My Messages 三个语音产品的 Android 端开发。}
+
 \begin{itemize}
-  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成：React Native 原生桥接、Cortana 语音交互（KWS / AEC / TTS）、消息 triage
-  \item 在 Outlook 实现 TTS 流式邮件播报与语音指令处理，负责 session 稳定性优化
+  \item 从 POC 到 GA 全程主导 Catch Me Up 在 Teams Android 的集成：React Native 原生桥接、Cortana 语音交互（KWS 唤醒 / AEC / TTS）、消息 triage 操作
+  \item 在 Outlook 实现 TTS 流式邮件播报与语音指令处理，负责 session 稳定性优化（重试、断网恢复、状态管理）
   \item 主导 Hermes 引擎迁移与 SDX 架构重构，支持 Gov Cloud 部署
 \end{itemize}
 
-\datedsubsection{\textbf{SharePoint Online — 构建基础设施}}{2017 -- 2019}
-负责 SharePoint Online 大规模 Monorepo 的构建系统现代化。
+% ── Build Infra ──
+\stage{SharePoint Online — 构建基础设施}{2017 -- 2019}
+{加入 SOX Build vNext 团队，负责 SharePoint Online 大规模 Monorepo 的构建系统现代化。}
+
 \begin{itemize}
   \item 主导从传统构建系统到 Domino (BuildXL) 的迁移，优化增量构建管道
-  \item 负责跨分支集成（Forward Integration）与 Build Break 响应（DRI）
+  \item 负责跨分支集成（Forward Integration）与 Build Break 响应（DRI），维护构建稳定性
 \end{itemize}
 
-\section{\faGraduationCap\ 教育背景}
+% ══════════════════════════════════════════
+\section{教育背景}
 
-\datedsubsection{\textbf{浙江大学} \quad 计算机科学与技术 硕士}{2014 -- 2017}
-研究方向：移动安全、BYOD 访问控制
+\noindent
+\textbf{浙江大学} \hfill 2014 -- 2017\\
+计算机科学与技术 硕士 \quad\textcolor{accent}{研究方向：移动安全、BYOD 访问控制}
 
-\datedsubsection{\textbf{南京航空航天大学} \quad 计算机科学与技术 学士}{2010 -- 2014}
-2009 年 NOIP 一等奖保送
+\vspace{6pt}
+\noindent
+\textbf{南京航空航天大学} \hfill 2010 -- 2014\\
+计算机科学与技术 学士 \quad\textcolor{accent}{（2009 年 NOIP 一等奖保送）}
 
-\section{\faBook\ 学术发表}
-\begin{itemize}
-  \item \textbf{RiskCog: Unobtrusive Real-Time User Authentication on Mobile Devices in the Wild} \\
-    T.~Zhu, Z.~Qu, H.~Xu, J.~Zhang, \textbf{Z.~Shao} et al. \quad
-    \textit{IEEE Trans. Mobile Computing}, 2019 \quad|\quad \textbf{被引 92 次}
-  \item \textbf{AppShield: Enabling Multi-entity Access Control Cross Platforms for Mobile App Management} \\
-    Z.~Qu, G.~Guo, \textbf{Z.~Shao} et al. \quad
-    \textit{SecureComm 2016} (Springer LNCS) \quad|\quad \textbf{被引 11 次}
-\end{itemize}
+% ══════════════════════════════════════════
+\section{学术发表}
 
-\section{\faCogs\ 技术技能}
-\begin{itemize}[parsep=0.5ex]
-  \item \textbf{Android 平台：} Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native
-  \item \textbf{架构与 SDK：} MVVM, Clean Architecture, SDK/Runtime 设计, 模块化, 依赖注入, Host/Plugin 架构, Feature Gate
-  \item \textbf{AI 与产品集成：} Copilot 集成, AI Context Pipeline, 语音交互 (TTS/AEC/KWS), 合规性 UX, 模型切换
-  \item \textbf{工程实践：} Monorepo CI/CD, 构建系统, 性能遥测/Kusto, 灰度发布, 生产事故响应
-\end{itemize}
+\begin{enumerate}[leftmargin=1.5em, itemsep=4pt]
+  \item \textbf{RiskCog: Unobtrusive Real-Time User Authentication on Mobile Devices in the Wild}\\
+    T.~Zhu, Z.~Qu, H.~Xu, J.~Zhang, \textbf{Z.~Shao} et al.\\
+    \textit{IEEE Transactions on Mobile Computing}, 2019 \quad $|$ \quad \textbf{被引 92 次}
+
+  \item \textbf{AppShield: Enabling Multi-entity Access Control Cross Platforms for Mobile App Management}\\
+    Z.~Qu, G.~Guo, \textbf{Z.~Shao}, V.~Rastogi, Y.~Chen, H.~Chen, W.~Hong\\
+    \textit{SecureComm 2016} (Springer LNCS) \quad $|$ \quad \textbf{被引 11 次}
+\end{enumerate}
+
+% ══════════════════════════════════════════
+\section{技术技能}
+
+\begin{tabularx}{\textwidth}{@{} >{\bfseries}l X @{}}
+Android 平台  & Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
+架构与 SDK    & MVVM, Clean Architecture, SDK/Runtime 设计, 模块化, 依赖注入, Host/Plugin 架构, Feature Gate 体系 \\[3pt]
+AI 与产品集成 & Copilot 集成, AI Context Pipeline, 语音交互 (TTS/AEC/KWS), 合规性 UX, 模型切换 \\[3pt]
+工程实践      & Monorepo CI/CD, 构建系统, 性能遥测/Kusto, 灰度发布, 生产事故响应, 跨团队协作 \\
+\end{tabularx}
 
 \end{document}
