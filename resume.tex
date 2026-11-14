@@ -91,8 +91,8 @@
 \vspace{2pt}
 
 {\small\color{accent}
-8+ 年 Microsoft 移动端平台工程经验，覆盖 Android 架构、SDK/Runtime、语音助手、会议智能与 AI 产品集成等方向。
-长期在跨团队项目中承担客户端模块开发、宿主集成、稳定性优化与上线支持。
+9+ 年 Microsoft 客户端与平台工程经验，专注 Android、Copilot Runtime 与实时语音基础设施。
+主导跨 OfficeMobile、Outlook、Teams 的移动 SDK 与 Realtime Voice 核心链路，擅长复杂状态机、连接生命周期、可靠性和可观测性设计。
 }
 
 % ══════════════════════════════════════════
@@ -104,40 +104,40 @@
 \cventry{M365 Copilot Mobile Runtime — OCM}{2025 -- 至今}
 {OCM Android SDK，服务于 OfficeMobile、Outlook、Teams 等宿主应用。}
 \begin{itemize}
-  \item OCM Android SDK 平台工程：版本发布、宿主集成支持、跨模块兼容性维护、ECS rollout 审批与 Feature Flag 管理
-  \item Copilot Runtime 基础架构演进：配置体系、Feature Gate、GPT-5 模型切换、富文本响应渲染、Realtime Voice 链路
-  \item 核心功能模块交付：quote 上下文注入、WebSocket 合规链路、图片上传 Consent 流程
+  \item \textbf{主导 Realtime Voice 从 WebSocket/SignalR 到 WebRTC 的 Android 迁移}：拆分 Media 与 Data/control plane，重构 shared voice state machine，移除旧 client buffering，支撑 Voice/Text/Vision 混合模态
+  \item \textbf{主导 Voice 冷启动与连接性能治理}：拆解 click-to-ready 关键路径，实现 early connection、Warmup、SetupAndJoin 与 Data Channel reuse；显式建模 failed/stale/disconnected session，通过 single-flight、TTL 和 rebuild/rewarmup 避免重复初始化与坏连接复用
+  \item \textbf{攻克首包、打断与网络恢复}：实现 Audio Burst、基于 speaker output level 的 Speaking/FAR 与 barge-in 状态机；补齐 ACS reconnect、DNS backoff，并重构连接阶段 telemetry 和错误分类
+  \item \textbf{建设 Copilot Runtime 与合规基础设施}：设计 Selected Context 到 Sydney annotation 的 AI Context Pipeline、GPT-5/Model Switcher 与 Rich Response；完成合规 WebSocket 路由和 Compose 图片上传 Consent
 \end{itemize}
 
-\cventry{Outlook Android — Search \& Compliance}{2024 -- 2025}
-{Outlook Android 搜索体验与安全合规模块。}
+\cventry{Outlook Android — Search 架构现代化}{2024 -- 2025}
+{将 Java/View 体系的存量搜索模块渐进迁移到 Kotlin + Jetpack Compose。}
 \begin{itemize}
-  \item 搜索模块：People / Files / Events 多 tab 架构、结果渲染、性能监控
-  \item Search 页面 UX：自定义搜索结果渲染框架、搜索交互与页面体验优化
-  \item 安全合规：Intune 企业策略校验、SafeLink 集成、资源访问控制修复
+  \item 主导 People/Files/Events 多 Tab 从 Java/View 到 Kotlin/Compose 的渐进迁移：先抽离领域状态与数据接口，再通过 ComposeView/互操作层替换 UI，保持旧宿主、导航和遥测协议兼容
+  \item 设计单向数据流与可恢复 UI state，治理重复请求、Tab 切换状态丢失和列表重组；以 Feature Flag 双轨 rollout，对比冷启动、首屏渲染、滚动与错误率并保留快速回滚能力
 \end{itemize}
 
 \cventry{Teams MeetApp — AI 会议智能平台}{2022 -- 2024}
 {Teams Windows Desktop React Native 项目，为 Teams Desktop 提供 AI 增强的会议管理体验。}
 \begin{itemize}
-  \item MeetApp 架构与功能：Graph / Substrate API 客户端、数据流、会议列表、Recap 导航、AI 摘要
-  \item Copilot 入口与跨会议 AI 摘要（CrossMeetingCatchUp），集成 BizChat streaming 对话流
-  \item 性能监控体系（Kusto / Augloop）和调试工具，排查内存泄漏与导航延迟等生产问题
+  \item 从零设计 MeetApp 数据与导航架构：统一 Graph/Substrate API、Insight Builder 与 Calendar 数据管道，支撑 Upcoming/Recent/Missed 分类和 Recap 深链
+  \item 设计 Copilot 入口与 CrossMeetingCatchUp，接入 BizChat streaming 对话流并利用 GPT-4 生成跨会议摘要
+  \item 建立性能 telemetry 与毫秒级日志调试工具，结合 Kusto/Augloop 定位内存泄漏、导航延迟和用户切换等生产问题
 \end{itemize}
 
 \cventry{语音助手与对话式 AI（Cortana / PME）}{2019 -- 2022}
 {Play My Email、Catch Me Up、Play My Messages 三个语音产品的 Android 端。}
 \begin{itemize}
-  \item Catch Me Up 在 Teams Android 从 POC 到 GA 的全链路集成：React Native 原生桥接、Cortana 语音交互（KWS / AEC / TTS）、消息分类
-  \item Outlook TTS 流式邮件播报与语音指令处理，session 稳定性优化
-  \item Hermes 引擎迁移与 SDX 架构重构，支持 Gov Cloud 部署
+  \item 主导 Catch Me Up 在 Teams Android 从 POC 到 GA：设计 React Native 原生桥接，打通 KWS/AEC/TTS、消息 Like/Reply/Mark-as-Read 与宿主 SDK
+  \item 实现 Outlook Play My Email 的 TTS Streaming、语音 triage 与 session 恢复，处理网络中断、播放状态和重试一致性
+  \item 完成 Hermes 预编译 Bundle 与 SDX 架构迁移，支持 Gov Cloud 部署并降低运行时集成复杂度
 \end{itemize}
 
-\cventry{SharePoint Online — 构建基础设施}{2017 -- 2019}
+\cventry{SharePoint Online — 大规模构建基础设施}{2017 -- 2019}
 {SharePoint Online 大规模 Monorepo 构建系统现代化。}
 \begin{itemize}
-  \item 传统构建系统到 Domino (BuildXL) 的迁移，优化增量构建流水线
-  \item 跨分支集成（Forward Integration）与 Build Break 响应（DRI）
+  \item 将大型 Monorepo 从传统构建系统迁移到 Domino/BuildXL，处理 metabuild、OACR、Pip 依赖哈希和缓存失效等兼容性问题
+  \item 优化增量构建与跨分支 Forward Integration，并承担 Build Break DRI，通过 backout、依赖定位和验证恢复主干生产力
 \end{itemize}
 
 % ══════════════════════════════════════════
@@ -166,8 +166,8 @@
 \begin{tabularx}{\textwidth}{@{} >{\bfseries\color{primary}\small}l >{\small}X @{}}
 Android 平台  & Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
 架构与 SDK    & MVVM, Clean Architecture, SDK/Runtime 设计, 模块化, 依赖注入, Host/Plugin 架构, Feature Gate \\[3pt]
-AI 与产品集成 & Copilot 集成, AI Context Pipeline, 语音交互 (TTS/AEC/KWS), 合规性 UX, 模型切换 \\[3pt]
-工程实践      & Monorepo CI/CD, 构建系统, 性能监控/Kusto, 灰度发布, 线上问题处理, 跨团队协作 \\
+Realtime 与 AI & WebRTC/RTP, WebSocket, Data Channel, Realtime Voice State Machine, TTS/AEC/KWS, Copilot/GPT Integration \\[3pt]
+工程实践      & 冷启动/性能治理, SDK/Runtime 设计, Telemetry/Kusto, Feature Rollout, Incident Response, Monorepo CI/CD \\
 \end{tabularx}
 
 \end{document}

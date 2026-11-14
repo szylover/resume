@@ -91,9 +91,9 @@
 \vspace{2pt}
 
 {\small\color{accent}
-Software Engineer with 8+ years at Microsoft, contributing to Android platform engineering, SDK/runtime design,
-voice assistants, AI meeting experiences, and AI product integration. Experienced in client-side feature work,
-host app integration, reliability improvements, and release support in cross-team projects.
+Software engineer with 9+ years at Microsoft, specializing in Android, Copilot runtime, and realtime voice infrastructure.
+Owned mobile SDK and realtime voice foundations shared across OfficeMobile, Outlook, and Teams, with deep experience in
+state machines, connection lifecycle, reliability, and observability.
 }
 
 % ==========================================
@@ -103,42 +103,42 @@ host app integration, reliability improvements, and release support in cross-tea
 {\large\bfseries\color{darktext}\sffamily Microsoft} \hfill {\small\textcolor{accent}{Software Engineer 2 \quad|\quad Jun 2017 -- Present}}
 
 \cventry{M365 Copilot Mobile Runtime -- OCM}{2025 -- Present}
-{Contribute to the Android SDK for OneCopilotMobile, shared by host apps including OfficeMobile, Outlook, and Teams.}
+{Own core Android runtime and realtime voice capabilities in OneCopilotMobile, shared by OfficeMobile, Outlook, and Teams.}
 \begin{itemize}
-  \item Support day-to-day OCM Android SDK engineering: releases, host integration support, cross-module compatibility, ECS rollout approvals, and feature flag management.
-  \item Contribute to Copilot runtime infrastructure across configuration, feature gates, GPT-5 model switching, rich response rendering, and realtime voice integration.
-  \item Implement assigned product and compliance modules including quote context injection, compliant WebSocket routing, and image upload consent flow.
+  \item \textbf{Led the Android migration of Realtime Voice from WebSocket/SignalR to WebRTC}: separated media and data/control planes, redesigned the shared voice state machine, removed legacy client buffering, and enabled mixed Voice/Text/Vision experiences.
+  \item \textbf{Led Voice cold-start and connection performance}: decomposed the click-to-ready critical path; implemented early connection, Warmup, SetupAndJoin, and Data Channel reuse; used single-flight, TTL, and explicit failed/stale/disconnected states to prevent duplicate initialization and broken-session reuse.
+  \item \textbf{Solved first-utterance, interruption, and recovery failures}: built Audio Burst, speaker-output-based Speaking/FAR, and a barge-in state machine; added ACS reconnect and DNS backoff while redesigning connection-stage telemetry and error taxonomy.
+  \item \textbf{Built Copilot runtime and compliance foundations}: designed Selected Context-to-Sydney annotations, GPT-5/model switching, and Rich Response; delivered compliant WebSocket routing and Compose-based image-upload consent.
 \end{itemize}
 
-\cventry{Outlook Android -- Search \& Compliance}{2024 -- 2025}
-{Contributed to Outlook Android search experiences and security/compliance-related feature work.}
+\cventry{Outlook Android -- Search Architecture Modernization}{2024 -- 2025}
+{Progressively migrated a legacy Java/View search stack to Kotlin and Jetpack Compose.}
 \begin{itemize}
-  \item Outlook search module work: People, Files, and Events tab architecture, result rendering, and performance telemetry.
-  \item Outlook Search page UX: custom search result rendering, search interactions, and page experience.
-  \item Security and compliance modules: Intune enterprise policy checks, SafeLink integration, and resource access control fixes.
+  \item Led the People/Files/Events multi-tab migration by first extracting domain state and data contracts, then replacing UI through ComposeView/interoperability layers while preserving host navigation and telemetry compatibility.
+  \item Designed unidirectional, restorable UI state and eliminated duplicate requests, tab-state loss, and excessive recomposition; ran legacy and Compose paths behind feature flags with cold-start, first-render, scroll, and error-rate guardrails plus instant rollback.
 \end{itemize}
 
 \cventry{Teams MeetApp -- AI Meeting Experience}{2022 -- 2024}
-{Contributed to MeetApp in the Teams Windows Desktop React Native project, providing AI-enhanced meeting management experiences for Teams Desktop.}
+{Owned core architecture and AI meeting features in the Teams Windows Desktop React Native MeetApp.}
 \begin{itemize}
-  \item Participated in MeetApp architecture design and feature development, including Graph/Substrate API clients, data pipeline, meeting list, Recap navigation, and AI summary features.
-  \item Contributed to Copilot entry points and cross-meeting AI summaries, including BizChat streaming conversation flow.
-  \item Helped build performance telemetry with Kusto/Augloop, debugging tools, and production investigations for issues such as memory leaks and navigation latency.
+  \item Designed MeetApp's data and navigation architecture from the ground up, unifying Graph/Substrate clients, Insight Builder, and calendar pipelines for Upcoming/Recent/Missed views and Recap deep links.
+  \item Built the Copilot entry point and CrossMeetingCatchUp, integrating BizChat streaming and GPT-4-powered cross-meeting summaries.
+  \item Established performance telemetry and a millisecond-level logging tool; used Kusto/Augloop to diagnose memory leaks, navigation latency, and account-transition failures.
 \end{itemize}
 
 \cventry{Voice Assistants and Conversational AI -- Cortana / PME}{2019 -- 2022}
-{Contributed to Android experiences for Play My Email, Catch Me Up, and Play My Messages.}
+{Owned Android features across Play My Email, Catch Me Up, and Play My Messages.}
 \begin{itemize}
-  \item Contributed to Catch Me Up integration in Teams Android from POC to GA, covering React Native native bridge, Cortana voice interaction, KWS/AEC/TTS, and message triage actions.
-  \item Developed streaming email readout and voice command handling in Outlook, with session reliability improvements for retry, network recovery, and state management.
-  \item Participated in Hermes engine migration and SDX architecture refactoring, including support for Gov Cloud deployment.
+  \item Led Catch Me Up on Teams Android from POC to GA: designed React Native native bridges and integrated KWS/AEC/TTS plus Like/Reply/Mark-as-Read actions with host messaging APIs.
+  \item Built TTS streaming, voice triage, and session recovery for Outlook Play My Email, addressing network interruption, playback state, and retry consistency.
+  \item Migrated to precompiled Hermes bundles and the SDX architecture, enabling Gov Cloud deployment and reducing runtime integration complexity.
 \end{itemize}
 
-\cventry{SharePoint Online -- Build Infrastructure}{2017 -- 2019}
+\cventry{SharePoint Online -- Large-Scale Build Infrastructure}{2017 -- 2019}
 {Worked on build system modernization for the large-scale SharePoint Online monorepo.}
 \begin{itemize}
-  \item Participated in migration from the legacy build system to Domino (BuildXL), improving incremental build workflows.
-  \item Supported forward integration across branches and build break response as part of the DRI rotation.
+  \item Migrated a large monorepo from the legacy build system to Domino/BuildXL, resolving metabuild, OACR, Pip dependency-hash, and cache-invalidation compatibility issues.
+  \item Optimized incremental builds and cross-branch forward integration; served in the Build Break DRI rotation to restore the mainline through backouts, dependency isolation, and validation.
 \end{itemize}
 
 % ==========================================
@@ -167,8 +167,8 @@ host app integration, reliability improvements, and release support in cross-tea
 \begin{tabularx}{\textwidth}{@{} >{\bfseries\color{primary}\small}l >{\small}X @{}}
 Android Platform & Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
 Architecture \& SDK & MVVM, Clean Architecture, SDK/runtime design, modularization, dependency injection, host/plugin architecture, feature gates \\[3pt]
-AI Integration & Copilot integration, AI context pipeline, voice interaction (TTS/AEC/KWS), compliance UX, model switching \\[3pt]
-Engineering & Monorepo CI/CD, build systems, performance telemetry/Kusto, staged rollout, production incident response, cross-team collaboration \\
+Realtime \& AI & WebRTC/RTP, WebSocket, Data Channel, realtime voice state machines, TTS/AEC/KWS, Copilot/GPT integration \\[3pt]
+Engineering & Cold-start/performance optimization, SDK/runtime design, telemetry/Kusto, feature rollout, incident response, monorepo CI/CD \\
 \end{tabularx}
 
 \end{document}
