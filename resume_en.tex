@@ -103,12 +103,16 @@ state machines, connection lifecycle, reliability, and observability.
 {\large\bfseries\color{darktext}\sffamily Microsoft} \hfill {\small\textcolor{accent}{Software Engineer 2 \quad|\quad Jun 2017 -- Present}}
 
 \cventry{M365 Copilot Mobile Runtime -- OCM}{2025 -- Present}
-{Own core Android runtime and realtime voice capabilities in OneCopilotMobile, shared by OfficeMobile, Outlook, and Teams.}
+{Own Android runtime capabilities in OneCopilotMobile, shared by OfficeMobile, Outlook, and Teams.}
 \begin{itemize}
-  \item \textbf{Led the Android migration of Realtime Voice from WebSocket/SignalR to WebRTC}: separated media and data/control planes, redesigned the shared voice state machine, removed legacy client buffering, and enabled mixed Voice/Text/Vision experiences.
-  \item \textbf{Led Voice cold-start and connection performance}: decomposed the click-to-ready critical path; implemented early connection, Warmup, SetupAndJoin, and Data Channel reuse; used single-flight, TTL, and explicit failed/stale/disconnected states to prevent duplicate initialization and broken-session reuse.
-  \item \textbf{Solved first-utterance, interruption, and recovery failures}: built Audio Burst, speaker-output-based Speaking/FAR, and a barge-in state machine; added ACS reconnect and DNS backoff while redesigning connection-stage telemetry and error taxonomy.
   \item \textbf{Built Copilot runtime and compliance foundations}: designed Selected Context-to-Sydney annotations, GPT-5/model switching, and Rich Response; delivered compliant WebSocket routing and Compose-based image-upload consent.
+\end{itemize}
+
+\cventry{Mobile Copilot Email Action Agent -- Architecture Prototype}{2026}
+{Designed an agentic vertical slice for high-risk email actions in Mobile Copilot.}
+\begin{itemize}
+  \item Designed an end-to-end flow from mail/meeting/document context grounding to DraftEmail/SendEmail tool calls, with a native Android approval card for recipient disambiguation, external-domain, DLP, and attachment-risk warnings.
+  \item Bound signed approval to the exact draft hash; used server-side idempotency keys, an operation state machine, and unknown-outcome lookup to prevent duplicate sends, with least privilege, prompt-injection isolation, and privacy-aware auditing.
 \end{itemize}
 
 \cventry{Outlook Android -- Search Architecture Modernization}{2024 -- 2025}
@@ -167,8 +171,8 @@ state machines, connection lifecycle, reliability, and observability.
 \begin{tabularx}{\textwidth}{@{} >{\bfseries\color{primary}\small}l >{\small}X @{}}
 Android Platform & Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
 Architecture \& SDK & MVVM, Clean Architecture, SDK/runtime design, modularization, dependency injection, host/plugin architecture, feature gates \\[3pt]
-Realtime \& AI & WebRTC/RTP, WebSocket, Data Channel, realtime voice state machines, TTS/AEC/KWS, Copilot/GPT integration \\[3pt]
-Engineering & Cold-start/performance optimization, SDK/runtime design, telemetry/Kusto, feature rollout, incident response, monorepo CI/CD \\
+Agent \& AI & Context engineering, tool calling, human-in-the-loop, idempotent execution, Copilot/GPT integration \\[3pt]
+Engineering & Android performance, SDK/runtime design, WebSocket, telemetry/Kusto, feature rollout, incident response \\
 \end{tabularx}
 
 \end{document}

@@ -104,10 +104,14 @@
 \cventry{M365 Copilot Mobile Runtime — OCM}{2025 -- 至今}
 {OCM Android SDK，服务于 OfficeMobile、Outlook、Teams 等宿主应用。}
 \begin{itemize}
-  \item \textbf{主导 Realtime Voice 从 WebSocket/SignalR 到 WebRTC 的 Android 迁移}：拆分 Media 与 Data/control plane，重构 shared voice state machine，移除旧 client buffering，支撑 Voice/Text/Vision 混合模态
-  \item \textbf{主导 Voice 冷启动与连接性能治理}：拆解 click-to-ready 关键路径，实现 early connection、Warmup、SetupAndJoin 与 Data Channel reuse；显式建模 failed/stale/disconnected session，通过 single-flight、TTL 和 rebuild/rewarmup 避免重复初始化与坏连接复用
-  \item \textbf{攻克首包、打断与网络恢复}：实现 Audio Burst、基于 speaker output level 的 Speaking/FAR 与 barge-in 状态机；补齐 ACS reconnect、DNS backoff，并重构连接阶段 telemetry 和错误分类
   \item \textbf{建设 Copilot Runtime 与合规基础设施}：设计 Selected Context 到 Sydney annotation 的 AI Context Pipeline、GPT-5/Model Switcher 与 Rich Response；完成合规 WebSocket 路由和 Compose 图片上传 Consent
+\end{itemize}
+
+\cventry{Mobile Copilot Email Action Agent — 架构原型}{2026}
+{面向 Mobile Copilot 高风险邮件操作的 Agent vertical slice 设计。}
+\begin{itemize}
+  \item 设计从邮件/会议/文档 context grounding 到 DraftEmail/SendEmail tool calling 的端到端流程，由 Android 原生审批卡承载收件人消歧、外部域名、DLP 和附件风险提示
+  \item 以 draft hash 绑定签名审批凭证，服务端通过 idempotency key、operation state machine 与 unknown-outcome 查询防止超时重试导致重复发送；补齐最小权限、prompt injection 隔离和隐私审计
 \end{itemize}
 
 \cventry{Outlook Android — Search 架构现代化}{2024 -- 2025}
@@ -166,8 +170,8 @@
 \begin{tabularx}{\textwidth}{@{} >{\bfseries\color{primary}\small}l >{\small}X @{}}
 Android 平台  & Kotlin, Java, Jetpack Compose, Coroutines/Flow, Dagger/Hilt, OkHttp/WebSocket, Room, React Native \\[3pt]
 架构与 SDK    & MVVM, Clean Architecture, SDK/Runtime 设计, 模块化, 依赖注入, Host/Plugin 架构, Feature Gate \\[3pt]
-Realtime 与 AI & WebRTC/RTP, WebSocket, Data Channel, Realtime Voice State Machine, TTS/AEC/KWS, Copilot/GPT Integration \\[3pt]
-工程实践      & 冷启动/性能治理, SDK/Runtime 设计, Telemetry/Kusto, Feature Rollout, Incident Response, Monorepo CI/CD \\
+Agent 与 AI   & Context Engineering, Tool Calling, Human-in-the-loop, Idempotent Execution, Copilot/GPT Integration \\[3pt]
+工程实践      & Android 性能治理, SDK/Runtime 设计, WebSocket, Telemetry/Kusto, Feature Rollout, Incident Response \\
 \end{tabularx}
 
 \end{document}
