@@ -251,5 +251,8 @@ fun `late old generation cannot overwrite new cache`() = runTest {
 
 <h3>3.7 口述版本</h3>
 <div class="card good">这个 ConnectionManager 的核心是把 warmup 做成带生命周期的 single-flight。锁内只决定复用、加入现有 flight 或创建新 flight，所有网络等待都在锁外；完成后带 generation 再次加锁提交，避免旧任务覆盖网络切换后的新 client。缓存可复用条件包含 user/tenant/config/TTL/network epoch/health。取消分调用者取消和 manager invalidation，native close 在有界 NonCancellable 中完成。测试用虚拟时间和可控 factory 覆盖并发、过期、晚到结果和资源释放。</div>
+<h3>3.8 代码拷打的证据标准</h3>
+<ul><li>能在白板上写出锁内/锁外边界，而不是背现成代码。</li><li>能指出示例中 generation、共享 Deferred、调用者取消的潜在 bug。</li><li>能写一个 deterministic race test，而不是只说“加 Mutex”。</li><li>能解释 native close、scope owner 和泄漏检测。</li></ul>
+<div class="q"><b>面试官：</b>这段 Kotlin 是你生产代码吗？<div class="answer">若不是，应明确：“这是为验证设计写的 reference implementation；生产经历中的相邻问题是 X。reference code 用来展示我对并发边界的理解，不声称是公司代码。”</div></div>
 </section><div class="chapter-nav"><a href="03-cold.html">← 上一章</a><a href="05-weak.html">下一章 →</a></div></main></div>
 </body></html>

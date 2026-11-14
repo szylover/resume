@@ -77,5 +77,8 @@ data class ResumeRequest(
 <h3>4.6 指标与口述</h3>
 <p>指标至少包括 disconnect rate、resume/rebuild success、time-to-recover、retry distribution、budget exhausted、duplicate prevented、lost turn、network/candidate/error taxonomy。分母必须明确：每 session、每 turn 或每受影响用户。</p>
 <div class="card good">我把弱网恢复建模为 transport、session 和 conversation 三层，而不是统一 catch/retry。Android 网络事件维护 network epoch；client 只有在 health、账号、配置和 epoch 都匹配时才可复用。短暂断开给 grace period，网络切换优先 fresh connection + resume，无法证明健康时 rebuild。有副作用请求遇到 unknown outcome 不直接重发，而是按 requestId 查询。整个策略受 retry budget、jitter 和 endpoint breaker 控制，并用 turn sequence 验证恢复后没有重复或倒退。</div>
+<h3>4.7 弱网成果怎么证明</h3>
+<ul><li>恢复成功率必须以“受影响 session”为分母，不是全部 session。</li><li>time-to-recover 从断链检测到业务可继续，不以 NetworkCallback 为终点。</li><li>重复 turn、丢 turn、reconnect loop 是正确性护栏。</li><li>必须准备一次真实网络故障 trace：事件顺序、旧 client 状态、修复和回归测试。</li></ul>
+<details><summary>三级追问：你说解决弱网，具体是哪种弱网？</summary><p>一级区分 offline、DNS、connect、half-open、network switch；二级说明每类恢复策略；三级给出某类失败的日志/指标、状态机转移和验证。只回答“加 retry”达不到 Senior。</p></details>
 </section><div class="chapter-nav"><a href="04-kotlin.html">← 上一章</a><a href="06-compose.html">下一章 →</a></div></main></div>
 </body></html>

@@ -117,5 +117,9 @@ composeView.setContent {
 
 <h3>5.9 口述版本</h3>
 <div class="card good">我没有把 Outlook Search 当成一次 UI 重写，而是用 strangler strategy 渐进迁移。先把 Java/View 中分散的 query、tab 和 result 抽成 Kotlin domain/repository 和单向 state，再让旧 UI 与 Compose 共用同一状态真源，随后按 Tab 通过 ComposeView 替换。搜索用 debounce、flatMapLatest 和 generation 解决旧请求晚到；列表用稳定 key、细粒度 state 和后台预处理控制 jank。旧新路径发送同一 telemetry schema，并在 feature flag 下比较首屏、滚动、错误和请求重复，确保指标改善不是漏报造成。</div>
+<h3>5.10 Compose 迁移证据卡</h3>
+<table><tr><th>声明</th><th>证据</th><th>危险追问</th></tr><tr><td>降低页面卡顿</td><td>Macrobenchmark/JankStats/Perfetto 前后对比</td><td>瓶颈真的是 recomposition 吗？哪段主线程 trace？</td></tr><tr><td>减少重复请求</td><td>query generation、request count、取消测试</td><td>HTTP 是否真正取消？快速切 Tab 呢？</td></tr><tr><td>渐进迁移</td><td>旧新 contract、flag、回滚和删除计划</td><td>双状态真源怎么避免？埋点是否漏报？</td></tr></table>
+<p>准备一张 Perfetto 截图或可复述 trace：例如 Markdown parse/图片 decode/列表 measure 占用多少主线程时间，改到后台或缩小 state 后什么指标变化。没有 trace 时不要把所有性能改善归因于 Compose。</p>
+<details><summary>Senior 影响力追问</summary><p>为什么选择渐进迁移？谁反对？如何让旧模块 owner 接受共享 domain contract？如何定义回滚门槛？Senior 不只是写 Composable，还要控制跨版本风险和推动团队迁移。</p></details>
 </section><div class="chapter-nav"><a href="05-weak.html">← 上一章</a><a href="07-runtime.html">下一章 →</a></div></main></div>
 </body></html>

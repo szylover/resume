@@ -250,5 +250,13 @@ data class ContextEnvelope(
 
 <h3>6.5 OCM 综合故障演练</h3>
 <table><tr><th>故障</th><th>预期行为</th><th>验证</th></tr><tr><td>上传 60MB 伪装 JPG</td><td>magic/size/bounds 阶段拒绝，不完整 decode</td><td>内存峰值和错误分类</td></tr><tr><td>上传成功但响应丢失</td><td>查询 upload session offset/result，不重复 attachment</td><td>同一 uploadId 只有一个资源</td></tr><tr><td>Streaming 每 5ms 一个 token</td><td>批处理更新，页面仍保持帧率</td><td>Perfetto/JankStats</td></tr><tr><td>Context 权限刚被撤销</td><td>服务端拒绝并要求刷新，不使用缓存原文</td><td>permission epoch 测试</td></tr><tr><td>WebSocket half-open</td><td>heartbeat 超时→Recovering→resume/rebuild</td><td>无重复 turn、预算受控</td></tr></table>
+<h3>6.6 OCM 每条简历 bullet 的证据包</h3>
+<table><tr><th>Bullet</th><th>代码/设计证据</th><th>指标/上线证据</th><th>最危险追问</th></tr>
+<tr><td>弱网与会话可靠性</td><td>error taxonomy、state machine、retry policy、fault test</td><td>recovery success、loop/duplicate、incident timeline</td><td>哪种 failure 是你修的？旧逻辑具体错在哪？</td></tr>
+<tr><td>图片上传与隐私</td><td>URI pipeline、consent key、upload resume、cleanup</td><td>upload success、OOM、consent funnel、rollout</td><td>你做的是 consent 还是图像算法？不要混淆</td></tr>
+<tr><td>Rich Response 性能</td><td>Perfetto trace、state/reducer diff、benchmark</td><td>TTFC/jank/memory 前后同口径</td><td>为何确定是 Compose 重组而非 parse/decode？</td></tr>
+<tr><td>Context Pipeline</td><td>schema、transform、permission/provenance、golden test</td><td>build latency、truncation、grounding/citation</td><td>越权和 prompt injection 在哪一层阻断？</td></tr></table>
+<p><b>边界表达：</b>图片 Consent 不等于“做了图像处理算法”；Rich Response 不等于“训练模型”；Context Pipeline 不等于“设计了 Agent planner”。明确 Android/runtime ownership 反而更像 Senior。</p>
+<details><summary>如果无法公开内部指标怎么办？</summary><p>给出指标定义、分桶、实验和护栏，不给虚假绝对数；可说明“内部数值不公开”。但至少准备趋势、是否达到 rollout gate、是否回滚及一个具体故障，否则仍显空泛。</p></details>
 </section><div class="chapter-nav"><a href="06-compose.html">← 上一章</a><a href="08-meetapp.html">下一章 →</a></div></main></div>
 </body></html>

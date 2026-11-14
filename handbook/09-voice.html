@@ -80,5 +80,8 @@ Network loss:      Listening/Processing → Retrying or Failed
 
 <h3>8.9 口述版本</h3>
 <div class="card good">Catch Me Up 从 POC 到 GA 的难点是把语音 session、React Native UI 和 Teams 宿主动作连接成可恢复的系统。我把音频和 host capability 保留在 Native，JS 负责产品 UX，并通过带 session、sequence 和 commandId 的桥接协议避免旧事件和重复动作。Play My Email 的 TTS streaming 则围绕 first audio 与 underrun 做 buffer 取舍，并处理 audio focus、打断和网络恢复。Hermes/SDX 迁移进一步解决启动成本、模块部署和 Gov Cloud 配置差异。</div>
+<h3>8.10 POC→GA 的 Senior 证据</h3>
+<ul><li>列出你亲自 owner 的 native modules、bridge methods 和 host API。</li><li>准备一个 JS/Native lifecycle race：旧 callback、页面销毁或 duplicate action。</li><li>准备 TTS 指标定义：first audio、underrun、completion、interrupt。</li><li>说明 POC 到 GA 新增了哪些非功能要求：telemetry、accessibility、Gov、rollback、support。</li><li>说明 332 个 work item 里哪些体现 scope，而不是用数量替代影响。</li></ul>
+<details><summary>三级追问：你说主导从 POC 到 GA</summary><ol><li>一级：GA 相比 POC 多了什么？</li><li>二级：你具体 owner 哪些模块、设计和 rollout？</li><li>三级：讲一个 GA blocker、失败方案、跨团队冲突和最终指标。答不出第三层时，“主导”会被质疑。</li></ol></details>
 </section><div class="chapter-nav"><a href="08-meetapp.html">← 上一章</a><a href="10-build.html">下一章 →</a></div></main></div>
 </body></html>

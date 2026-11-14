@@ -61,5 +61,8 @@ Scheduler → Local or Distributed Worker
 
 <h3>9.8 口述版本</h3>
 <div class="card good">我参与的不是简单脚本改写，而是把 SharePoint 大型代码库迁移到基于 Pip DAG、sandbox 和 content-addressed cache 的 BuildXL 模型。主要难点是把 legacy build 中隐式的文件、工具和环境依赖显式化，解决 metabuild、OACR、生成文件非确定性和目录粒度导致的 cache invalidation。我用 fingerprint/miss 分析区分合理失效与环境噪声，并围绕 critical path 而不是单纯 Pip 数优化增量构建。作为 Build Break DRI，我先隔离首个失败与影响范围，再在 backout 和 roll-forward 之间按恢复时间和风险决策。</div>
+<h3>9.9 BuildXL 结果证据</h3>
+<table><tr><th>声明</th><th>证据</th><th>追问</th></tr><tr><td>优化增量构建</td><td>代表场景 wall time、critical path、weighted cache hit</td><td>改一个 header 的影响范围？</td></tr><tr><td>解决缓存失效</td><td>fingerprint diff、非确定输入、修复前后 miss</td><td>如何保证没造成错误命中？</td></tr><tr><td>Build Break DRI</td><td>一次 timeline、影响、backout/roll-forward 决策</td><td>MTTR 多久？怎么防复发？</td></tr><tr><td>迁移 BuildXL</td><td>你负责的 component、Pip、工具链兼容</td><td>组织级迁移中你的实际边界？</td></tr></table>
+<p>若找不到历史绝对构建时间，可准备相对证据：某类 cache miss 的根因、关键路径减少了哪条依赖、迁移覆盖的 component 和验证矩阵。不要把整个 SharePoint 构建迁移归为个人独立成果。</p>
 </section><div class="chapter-nav"><a href="09-voice.html">← 上一章</a><a href="11-email-agent.html">下一章 →</a></div></main></div>
 </body></html>

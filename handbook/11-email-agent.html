@@ -374,5 +374,26 @@ Response: { state, messageId?, failureCode?, retryAfter? }</code></pre>
 <p><b>简历表达：</b></p>
 <div class="card kpi">Designed and prototyped a Mobile Copilot Email Action Agent that turns mail, meeting, and document context into structured email plans. Built content-bound human approval, server-backed idempotent execution, DLP/external-recipient guardrails, and privacy-aware auditability to make high-risk actions safe and retryable.</div>
 <p><b>两分钟故事：</b>我希望验证 Mobile Copilot 不只是生成文本，而能安全执行高风险动作。我选择发送邮件作为 vertical slice，因为它同时涉及 context grounding、tool calling、审批、幂等和企业合规。模型只负责生成结构化 plan 和 draft，所有权限与策略由确定性服务判断；发送前由原生 UI 获取绑定具体 draft hash 的签名审批。执行层以 plan、draft version 和 approval 构造幂等键，并对超时后的 unknown outcome 查询既有 operation，避免重复邮件。最大的 trade-off 是安全确认会增加摩擦，因此只对外部收件人、附件或策略风险提高确认强度，同时保留完整审计和 kill switch。</p>
+<h3>10.15 Email Agent 危险声明审计</h3>
+<div class="card danger"><b>最高风险：</b>如果没有真实服务端、邮件工具、DLP 接入、PR、测试和 rollout，不能把完整系统描述为已生产交付。学习手册让你能答设计题，但不会自动生成生产证据。</div>
+<table><tr><th>面试官问题</th><th>必须能给出的答案</th><th>证据</th></tr>
+<tr><td>Planner 在哪里运行？</td><td>Android 只展示 plan；模型、tool registry 和 policy-aware planning 在服务端</td><td>API/schema/sequence diagram</td></tr>
+<tr><td>SendEmail schema？</td><td>recipient、draftVersion、approval、idempotency、operation；服务端重新校验</td><td>OpenAPI/DTO/contract test</td></tr>
+<tr><td>幂等状态在哪？</td><td>服务端数据库唯一键+operation state；Android Mutex 只防 double tap</td><td>DDL、事务和并发测试</td></tr>
+<tr><td>DLP owner？</td><td>确定性企业策略服务；Agent 只消费 decision，不自行 override</td><td>依赖边界、失败/超时策略</td></tr>
+<tr><td>Approval 谁签？</td><td>服务端基于可信用户手势和 canonical draft hash 签发短 TTL token</td><td>token claims、重放/篡改测试</td></tr>
+<tr><td>生产事故？</td><td>若没有必须直接说没有；改讲 threat model/fault injection</td><td>不能虚构 incident</td></tr>
+<tr><td>Rollout 数据？</td><td>若未上线则说 prototype/design；若上线需给 funnel、guardrail、flight</td><td>dashboard/experiment</td></tr></table>
+
+<h3>10.16 三级红队追问</h3>
+<details><summary>场景：邮件服务成功发送，但响应在网络中丢失</summary><ol><li>Android 收到 timeout 后做什么？只保存 operationId 并查询。</li><li>如果 operation record 仍是 EXECUTING？后台 reconciliation 用 provider request id/sent items 查最终状态。</li><li>如果 provider 不支持幂等或查询？无法保证 effectively-once；产品需展示 UNKNOWN 并禁止自动重发，可能要求用户人工核对。</li></ol></details>
+<details><summary>场景：用户批准后，模型偷偷增加外部收件人</summary><ol><li>approval 绑定 canonical draft/recipient/attachment hash，任何改变 token 失效。</li><li>Tool gateway 重新计算 hash 和授权，不信任 model/client 参数。</li><li>审计记录 mismatch；安全指标报警。模型永远不能声明“用户已批准”。</li></ol></details>
+<details><summary>场景：两台设备同时发送同一 plan</summary><ol><li>相同用户/plan/draft/approval 派生相同 idempotency key。</li><li>数据库唯一约束只有一个 operation claim 成功。</li><li>另一设备拿到既有 operation/messageId；本地 Mutex 无法解决跨设备。</li></ol></details>
+
+<h3>10.17 你的证据包清单</h3>
+<ul class="check"><li>可运行 Android demo，而非只有 HTML 设计</li><li>至少一个 fake/real backend，能演示 timeout→query 不重复发送</li><li>OpenAPI/tool schema 与数据库唯一约束</li><li>Approval token 篡改、过期、draft 修改测试</li><li>Prompt injection 与外部收件人测试</li><li>进程死亡/旋转/多次点击的 Android 测试</li><li>架构决策记录：为何服务端幂等、为何 WorkManager 只查询</li><li>若无生产 rollout，简历和口述明确 Prototype/Design 边界</li></ul>
+
+<h3>10.18 Ownership 回答模板</h3>
+<div class="card good">我负责的是 Android/runtime vertical slice：结构化 plan/draft 展示、收件人风险 UI、内容绑定审批的客户端交互、operation 状态恢复和 telemetry；服务端 Planner、DLP 与邮件 provider 由对应平台负责。我定义了双方 contract 和失败语义，并用本地/集成测试验证幂等与安全。如果当前只有设计或 demo，我会明确说明没有生产 rollout，不引用虚构指标。</div>
 </section><div class="chapter-nav"><a href="10-build.html">← 上一章</a><a href="12-drill.html">下一章 →</a></div></main></div>
 </body></html>

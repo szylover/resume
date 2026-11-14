@@ -148,5 +148,10 @@ Interrupting
 
 <h3>1.14 可防守的口述版本</h3>
 <div class="card good">我没有把 WebRTC 生产迁移描述成个人交付，而是针对 Mobile Copilot Realtime Voice 做了系统架构研究。我的分析重点是：迁移不是把 WebSocket 换成 PeerConnection，而是把音频放到 RTP/SRTP media plane，把 join、mute、transcript 和 telemetry 放到 DataChannel/control plane，并重新定义连接生命周期、Speaking/FAR、打断和指标语义。我重点设计了 warmup 失败不可复用、Audio Burst、网络切换后的 ICE/session recovery，以及分层 telemetry。为了验证理解，我能从 SDP/ICE/DTLS-SRTP 一直讲到 Android audio focus、状态机和故障 runbook，但不会声称拥有未实际交付的生产指标。</div>
+<h3>1.15 Ownership 红线与证据防守</h3>
+<div class="card danger"><b>危险声明：</b>“我主导了 WebSocket→WebRTC 生产迁移”“我把 FAR 降低了 X%”“我解决了线上 no-audio”。如果没有对应代码、设计评审、实验和事故记录，不要使用。</div>
+<table><tr><th>可说</th><th>必须具备的证据</th><th>追问</th></tr><tr><td>系统研究/方案设计</td><td>架构图、协议分析、demo 或设计文档</td><td>你验证了哪些假设？运行过什么代码？</td></tr><tr><td>实现本地 prototype</td><td>代码仓库、signaling、PeerConnection、stats、测试</td><td>ICE restart 如何触发？TURN 怎么验证？</td></tr><tr><td>生产迁移 owner</td><td>PR、rollout、指标、incident、依赖团队记录</td><td>你的 commit/模块/决策是什么？失败过什么？</td></tr></table>
+<details><summary>三级追问树</summary><ol><li>一级：WebRTC 相比 WebSocket 改善什么？</li><li>二级：哪一个指标证明？指标起止点在哪一层？</li><li>三级：给出真实 dashboard 分桶、实验样本、回滚阈值和一次 regression。如果无法提供，应回到“研究/原型”定位。</li></ol></details>
+<p><b>防守句式：</b>“这部分不是我的生产 ownership。我做的是协议和 Android 架构分析，并通过本地原型验证 X/Y；我能解释设计与故障，但不会把团队的生产结果算成个人结果。”</p>
 </section><div class="chapter-nav"><a href="01-rules.html">← 上一章</a><a href="03-cold.html">下一章 →</a></div></main></div>
 </body></html>

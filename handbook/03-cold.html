@@ -84,5 +84,9 @@ T8 first bot audio rendered (FAR)</code></pre>
 
 <h3>2.9 口述版本</h3>
 <div class="card good">我先把 Voice 冷启动定义为 click 到 audio ready 的端到端路径，并画出 SDK、credential、client、DataChannel 和 join 的依赖 DAG。优化不是单纯预热：独立阶段并行，SetupAndJoin 减少 RTT，single-flight 避免重复初始化，缓存 key 包含 user/tenant/config/network epoch，失败或 stale client 不可复用。预热只在入口曝光和资源允许时触发，并用 TTL 控制。实验同时看 P50/P95/P99、setup success、warmup hit，以及内存、电量和无效预热，防止只是把成本前移。</div>
+<h3>2.10 性能结果的证据链</h3>
+<table><tr><th>简历说法</th><th>至少准备</th><th>面试官会核验</th></tr><tr><td>优化冷启动</td><td>优化前后同口径 P50/P95/P99、样本量、设备/网络分桶</td><td>起止点、实验组、显著性、是否把工作前移</td></tr><tr><td>设计预热</td><td>eligibility、hit/miss/waste、TTL、资源护栏</td><td>为什么不 App 启动即预热？低端机怎么办？</td></tr><tr><td>解决重复初始化</td><td>race trace、single-flight 代码、并发测试</td><td>进程/多入口/取消时是否仍正确？</td></tr></table>
+<p><b>没有真实数字时：</b>不要临时编 P95。可以回答：“我没有保留可公开的绝对值；我负责定义 click→ready 分段 span，并用 cold/warm、设备和网络分桶验证。可公开的结果是 rollout 未触发护栏回退，具体内部数字不引用。”但仍要能画指标定义和实验方法。</p>
+<details><summary>Senior 深挖：你亲自做了什么？</summary><p>准备精确到类/接口：哪段 critical path 由你 instrument；哪个 Deferred/Mutex race 由你修；哪个 server API 由别组提供；你推动了哪些 owner。避免用“我们”掩盖边界，也不要把依赖团队成果全部揽为个人。</p></details>
 </section><div class="chapter-nav"><a href="02-realtime.html">← 上一章</a><a href="04-kotlin.html">下一章 →</a></div></main></div>
 </body></html>

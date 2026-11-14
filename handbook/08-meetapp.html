@@ -107,5 +107,8 @@ type CanonicalMeeting = {
 
 <h3>7.8 口述版本</h3>
 <div class="card good">MeetApp 的核心难点不是做会议列表，而是把多个最终一致的数据源合成稳定的会议实体，并让 Recap 和 Copilot 都基于同一个 identity、权限和导航 contract。我从 source adapter、canonical model、versioned patch 和分类 pipeline 搭起数据层；页面先用 cache/calendar 快速首屏，再渐进补齐 insights。CrossMeetingCatchUp 使用结构化会议 selection、服务端重新鉴权和带 provenance 的 streaming blocks。为了定位生产延迟，我建立 correlation span 和脱敏日志工具，把导航、API、分类和渲染串起来。设计取舍是宁可低置信度不合并会议，也不冒错误合并导致数据泄露的风险。</div>
+<h3>7.9 MeetApp 证据与追问</h3>
+<table><tr><th>声明</th><th>必须准备</th><th>深挖</th></tr><tr><td>从零设计架构</td><td>旧状态/空白起点、模块图、关键接口、评审决策</td><td>哪些决策由你拍板？谁不同意？</td></tr><tr><td>多源数据统一</td><td>identity 冲突案例、version patch、权限失败</td><td>错误合并发生过吗？如何检测？</td></tr><tr><td>性能工具</td><td>一次真实 trace/log 导出、定位到根因的故事</td><td>工具改变了什么决策？不是“做了个日志页面”</td></tr><tr><td>AI 摘要</td><td>context/provenance、质量评估、权限边界</td><td>模型幻觉和无权限数据怎么处理？</td></tr></table>
+<p>准备一个 Incident：例如导航延迟或内存泄漏。按时间线讲 detection→影响→假设→证据→止损→根因→长期修复→防复发。若没有真实 incident，不要编；选择你确实处理过的生产问题。</p>
 </section><div class="chapter-nav"><a href="07-runtime.html">← 上一章</a><a href="09-voice.html">下一章 →</a></div></main></div>
 </body></html>
