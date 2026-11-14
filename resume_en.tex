@@ -105,14 +105,11 @@ state machines, connection lifecycle, reliability, and observability.
 \cventry{M365 Copilot Mobile Runtime -- OCM}{2025 -- Present}
 {Own Android runtime capabilities in OneCopilotMobile, shared by OfficeMobile, Outlook, and Teams.}
 \begin{itemize}
-  \item \textbf{Built Copilot runtime and compliance foundations}: designed Selected Context-to-Sydney annotations, GPT-5/model switching, and Rich Response; delivered compliant WebSocket routing and Compose-based image-upload consent.
-\end{itemize}
-
-\cventry{Mobile Copilot Email Action Agent -- Architecture Prototype}{2026}
-{Designed an agentic vertical slice for high-risk email actions in Mobile Copilot.}
-\begin{itemize}
-  \item Designed an end-to-end flow from mail/meeting/document context grounding to DraftEmail/SendEmail tool calls, with a native Android approval card for recipient disambiguation, external-domain, DLP, and attachment-risk warnings.
-  \item Bound signed approval to the exact draft hash; used server-side idempotency keys, an operation state machine, and unknown-outcome lookup to prevent duplicate sends, with least privilege, prompt-injection isolation, and privacy-aware auditing.
+  \item \textbf{Weak-network and session reliability}: classified retry/reconnect by network state and error type, handled DNS/connection failures and session recovery, and instrumented connection stages to prevent ineffective retries and duplicate initialization.
+  \item \textbf{Image upload and privacy}: unified Gallery, Camera, and Image Edit paths with a Compose consent gate, persisted state, feature-flag rollout, and failure recovery.
+  \item \textbf{Rich Response performance}: reduced unnecessary Compose recomposition, long-list rendering cost, and asynchronous state churn in Artifacts/rich responses; used first-render, scrolling, and error telemetry to diagnose jank.
+  \item \textbf{AI Context Pipeline}: transformed selected mail and documents into structured Sydney annotations with entity, provenance, and permission metadata for auditable Copilot grounding.
+  \item \textbf{Email Action Agent feature}: connected context grounding, DraftEmail/SendEmail tool calls, and a native approval card; bound approval to the draft hash and combined server-side idempotency, DLP, external-recipient warnings, and prompt-injection isolation to prevent duplicate or unauthorized sends.
 \end{itemize}
 
 \cventry{Outlook Android -- Search Architecture Modernization}{2024 -- 2025}

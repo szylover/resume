@@ -104,14 +104,11 @@
 \cventry{M365 Copilot Mobile Runtime — OCM}{2025 -- 至今}
 {OCM Android SDK，服务于 OfficeMobile、Outlook、Teams 等宿主应用。}
 \begin{itemize}
-  \item \textbf{建设 Copilot Runtime 与合规基础设施}：设计 Selected Context 到 Sydney annotation 的 AI Context Pipeline、GPT-5/Model Switcher 与 Rich Response；完成合规 WebSocket 路由和 Compose 图片上传 Consent
-\end{itemize}
-
-\cventry{Mobile Copilot Email Action Agent — 架构原型}{2026}
-{面向 Mobile Copilot 高风险邮件操作的 Agent vertical slice 设计。}
-\begin{itemize}
-  \item 设计从邮件/会议/文档 context grounding 到 DraftEmail/SendEmail tool calling 的端到端流程，由 Android 原生审批卡承载收件人消歧、外部域名、DLP 和附件风险提示
-  \item 以 draft hash 绑定签名审批凭证，服务端通过 idempotency key、operation state machine 与 unknown-outcome 查询防止超时重试导致重复发送；补齐最小权限、prompt injection 隔离和隐私审计
+  \item \textbf{弱网与会话可靠性}：按网络状态和错误类型区分 retry/reconnect，处理 DNS/连接失败和 session 恢复；建立连接阶段 telemetry，避免无效重试与重复初始化
+  \item \textbf{图片上传与隐私链路}：统一 Gallery/Camera/Image Edit 三条路径，以 Compose 实现 Consent gate、状态持久化、Feature Flag 灰度和失败恢复
+  \item \textbf{Rich Response 页面性能}：治理 Artifacts/富响应渲染中的 Compose 无效重组、长列表和异步状态更新，结合首屏、滚动与错误指标定位页面卡顿
+  \item \textbf{AI Context Pipeline}：将用户选择的邮件/文档转换为结构化 Sydney annotation，保留 entity、来源与权限信息，为 Copilot 推理提供可审计的 context grounding
+  \item \textbf{Email Action Agent feature}：打通 context grounding、DraftEmail/SendEmail tool calling 与 Android 原生审批卡；通过 draft hash 绑定审批，结合服务端幂等状态机、DLP、外部收件人提示和 prompt injection 隔离，防止重复或越权发送
 \end{itemize}
 
 \cventry{Outlook Android — Search 架构现代化}{2024 -- 2025}
