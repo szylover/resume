@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>5. Outlook Search：Java/View → Kotlin/Compose｜简历项目与技术面试学习手册</title><style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#11243b;--text:#e8f0fa;--muted:#9fb1c7;--blue:#55b8ff;--cyan:#59e1d3;--orange:#ffbe6b;--red:#ff7d91;--green:#79e29d;--line:#24405f;--code:#050b13}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#07111f,#0a1627 48%,#07111f);color:var(--text);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{padding:64px max(24px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 75% 10%,#174b6b66,transparent 35%)}
+h1{font-size:clamp(34px,6vw,68px);line-height:1.06;margin:0 0 18px;max-width:950px}.lead{font-size:20px;color:#c5d5e7;max-width:900px}.tag{display:inline-block;padding:5px 10px;border:1px solid #39719d;border-radius:999px;color:#bfe4ff;margin:4px 5px 4px 0;font-size:13px}
+.layout{max-width:1180px;margin:auto;display:grid;grid-template-columns:260px 1fr;gap:32px;padding:30px 24px 100px}nav{position:sticky;top:18px;height:max-content;background:#0b1828dd;border:1px solid var(--line);border-radius:14px;padding:16px;backdrop-filter:blur(12px)}nav a{display:block;color:var(--muted);text-decoration:none;padding:7px 8px;border-radius:7px;font-size:14px}nav a:hover{background:#16304b;color:white}
+main{min-width:0}section{min-height:calc(100vh - 60px);margin:0 0 42px;padding:30px;background:linear-gradient(145deg,#0b1828e8,#102239e8);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 45px #0004;scroll-margin-top:20px;break-before:page;page-break-before:always;break-after:page;page-break-after:always}main section:first-child{break-before:auto;page-break-before:auto}h2{font-size:32px;margin:0 0 16px;border-bottom:1px solid var(--line);padding-bottom:10px}h3{font-size:22px;color:#cceaff;margin:28px 0 9px}h4{font-size:17px;color:var(--cyan);margin:20px 0 7px}p,li{color:#c8d5e5}.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kpi{border-left:4px solid var(--blue)}.warn{border-left:4px solid var(--orange)}.danger{border-left:4px solid var(--red)}.good{border-left:4px solid var(--green)}
+code{background:#10243a;color:#bfe7ff;padding:2px 5px;border-radius:5px}pre{background:var(--code);border:1px solid #1d3956;border-radius:12px;padding:18px;overflow:auto;line-height:1.48;color:#d8e9ff;font-size:13px}pre code{background:none;padding:0}.story{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--line)}.story>div{padding:10px}.story .label{color:var(--cyan);font-weight:700}.q{border-left:3px solid #7c7cff;padding:8px 14px;margin:10px 0;background:#101d32}.answer{color:#9fd4ff}.todo{color:#ffd18d;font-weight:700}.pill{font-size:12px;border:1px solid #456581;border-radius:20px;padding:2px 8px;color:#b6d9f4}.mermaid{font-family:ui-monospace,monospace;white-space:pre-wrap;background:#07101c;padding:16px;border-radius:10px;color:#a8dcff}.check li{margin:7px 0}.small{font-size:13px;color:var(--muted)}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}th{background:#15304a;color:#d9efff}details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#0b1727}summary{cursor:pointer;font-weight:700;color:#d8edff}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{position:relative;top:0}.grid{grid-template-columns:1fr}.story{grid-template-columns:1fr}.story .label{padding-bottom:0}section{padding:20px;min-height:auto}}
+@media print{@page{size:A4;margin:14mm}body{background:white;color:#111}.layout{display:block;max-width:none;padding:0}header{break-after:page;page-break-after:always;padding:20mm 10mm}nav{display:none}section{display:block;min-height:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:white;break-before:page;page-break-before:always;break-after:page;page-break-after:always}.card,details{background:white;border-color:#bbb}p,li,.small{color:#222}h1,h2,h3,h4{color:#111}pre{white-space:pre-wrap;color:#111;background:#f4f4f4;font-size:9px}.tag{color:#111}table{font-size:10px}}
+</style>
+<style>
+body{min-height:100vh}.layout{grid-template-columns:250px minmax(0,1fr)}
+main section{display:block!important;min-height:calc(100vh - 60px);margin:0;padding:30px}
+.chapter-nav{display:flex;justify-content:space-between;gap:12px;margin:24px 0 0}.chapter-nav a,.home-link{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:9px;color:#bfe4ff;text-decoration:none;background:#10243a}.chapter-nav a:hover,.home-link:hover{background:#173653}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{display:none}main section{padding:20px}}
+</style></head><body>
+<header><a class="home-link" href="index.html">← 返回目录</a><h1>5. Outlook Search：Java/View → Kotlin/Compose</h1><p class="lead">简历项目与技术面试学习手册 · 独立章节版</p></header>
+<div class="layout"><nav><a href="index.html">目录首页</a><a href="01-rules.html">0. 怎样把项目讲成高级工程故事</a><a href="02-realtime.html">1. Realtime Voice：WebSocket → WebRTC</a><a href="03-cold.html">2. Voice 冷启动与连接性能治理</a><a href="04-kotlin.html">3. Kotlin：可讲明白的 Warmup + Join 完整示例</a><a href="05-weak.html">4. 弱网、网络切换与恢复</a><a href="06-compose.html">5. Outlook Search：Java/View → Kotlin/Compose</a><a href="07-runtime.html">6. OCM Runtime：可靠性、图片、渲染与 Context Pipeline</a><a href="08-meetapp.html">7. Teams MeetApp：AI 会议平台</a><a href="09-voice.html">8. Cortana / PME：语音助手从 POC 到 GA</a><a href="10-build.html">9. SharePoint BuildXL：大规模构建基础设施</a><a href="11-email-agent.html">10. Mobile Copilot Email Action Agent</a><a href="12-drill.html">11. 面试拷打题库</a><a href="13-plan.html">12. 建议学习顺序</a></nav><main><section id="compose"><h2>5. Outlook Search：Java/View → Kotlin/Compose</h2>
+<div class="story"><div class="label">问题</div><div>存量 Java/View 搜索由多个 Tab、Fragment/Adapter、回调和宿主导航耦合。状态散落，Tab 切换可能重复请求或丢失数据；一次性重写风险高，且不能破坏 telemetry、企业策略和旧宿主。</div></div>
+<div class="story"><div class="label">策略</div><div>先迁移“状态和边界”，后迁移 UI：定义 Kotlin domain model、SearchRepository、UiState/Action/Effect；用 ViewModel 形成单向数据流；通过 ComposeView 或 AndroidView 与旧页面共存；逐 Tab feature flag 替换。</div></div>
+<div class="story"><div class="label">性能</div><div>baseline 对比冷启动、首屏、搜索结果首条出现、滚动帧、recomposition、内存与错误率。使用稳定 key、immutable model、derivedStateOf、分页、避免在 composition 中启动请求；用 Macrobenchmark/Profile 验证。</div></div>
+<div class="story"><div class="label">结果</div><div>统一 People/Files/Events 状态模型，降低 UI 与数据源耦合，支持可恢复 Tab 状态、测试和渐进 rollout。<span class="todo">待补数：Java/Compose 首屏、jank、重复请求、代码量/测试覆盖率。</span></div></div>
+<h3>推荐状态模型</h3><pre><code>data class SearchUiState(
+    val query: String = "",
+    val selectedTab: SearchTab = SearchTab.People,
+    val tabs: Map&lt;SearchTab, TabState&gt; = SearchTab.entries.associateWith { TabState.Idle }
+)
+sealed interface TabState {
+    data object Idle : TabState
+    data object Loading : TabState
+    data class Content(val items: List&lt;SearchItem&gt;, val nextPage: String?) : TabState
+    data class Error(val kind: ErrorKind, val canRetry: Boolean) : TabState
+}
+sealed interface SearchAction {
+    data class QueryChanged(val value: String) : SearchAction
+    data class TabSelected(val tab: SearchTab) : SearchAction
+    data object Retry : SearchAction
+}</code></pre>
+<h3>为什么不能全量重写</h3><ul><li>搜索是高流量入口，行为兼容和回滚比代码洁癖重要。</li><li>旧宿主、导航、企业策略、埋点和 A/B 实验仍依赖既有 contract。</li><li>渐进迁移能逐 Tab 对比，快速隔离 regression；代价是过渡期有双栈和 adapter。</li></ul>
+<h3>Compose 性能拷打</h3><details><summary>如何避免无效重组？</summary><p>缩小 state 读取范围；稳定/不可变模型；LazyColumn 使用稳定 key；高频派生值用 derivedStateOf；回调用 rememberUpdatedState；不要每次 composition 创建集合或启动 IO。</p></details><details><summary>Compose 比 View 一定快吗？</summary><p>不一定。Compose 改善开发模型，但错误的 state 粒度、对象分配、布局层级和图片加载同样会造成 jank。必须用 Macrobenchmark、JankStats、Layout Inspector/Recomposition counts 和真实设备数据证明。</p></details>
+<h3>5.1 旧架构的问题画像</h3>
+<p>Java/View 版本常见结构是 Activity/Fragment 持有多个 Tab controller，Adapter、Loader/Callback 和导航相互引用。Query、selected tab、loading、results、error 分散在字段和 Bundle 中，导致旋转/进程恢复、快速切 Tab、重复请求和过期 callback 难以推理。</p>
+<div class="mermaid">Legacy Fragment
+ ├─ mutable query / selectedTab
+ ├─ PeopleAdapter + callbacks
+ ├─ FilesAdapter + callbacks
+ ├─ EventsAdapter + callbacks
+ ├─ Navigation / Telemetry
+ └─ Host policy
+
+目标：UI → Action → ViewModel/Reducer → State → UI
+             ↓ Repository / UseCases
+             ↓ versioned result + cancellation</div>
+
+<h3>5.2 渐进迁移的 Strangler Strategy</h3>
+<ol><li>先记录旧版 baseline：首屏、搜索 latency、jank、错误和 telemetry 事件。</li><li>抽取 Kotlin domain model 与 repository interface，旧 View 和新 Compose 共用。</li><li>建立 ViewModel/reducer，让旧 UI 也可订阅统一 state，消除双状态真源。</li><li>用 ComposeView 替换单个 Tab 或 result block，而不是整页 big bang。</li><li>导航、policy 和 telemetry 通过 adapter 保持 contract。</li><li>Feature Flag 双轨，对同一实验维度比较；稳定后删除旧路径和 adapter。</li></ol>
+<p>过渡期最大的风险是“双写”：旧 controller 和新 ViewModel 都更新 query/results。必须规定唯一 owner，interop layer 只做翻译，不持有业务状态。</p>
+
+<h3>5.3 搜索并发语义</h3>
+<pre><code>class SearchViewModel(
+    private val repository: SearchRepository,
+    savedState: SavedStateHandle
+) : ViewModel() {
+    private val query = savedState.getStateFlow("query", "")
+    private val selectedTab = savedState.getStateFlow("tab", SearchTab.People)
+
+    val state: StateFlow&lt;SearchUiState&gt; = combine(query, selectedTab) { q, tab -&gt; q to tab }
+        .debounce(250)
+        .distinctUntilChanged()
+        .flatMapLatest { (q, tab) -&gt;
+            if (q.isBlank()) flowOf(SearchUiState.Empty(tab))
+            else repository.search(tab, q)
+                .map&lt;SearchPage, SearchUiState&gt; { SearchUiState.Content(tab, q, it) }
+                .onStart { emit(SearchUiState.Loading(tab, q)) }
+                .catch { emit(SearchUiState.Error(tab, q, classify(it))) }
+        }
+        .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5_000), SearchUiState.Initial)
+}</code></pre>
+<ul><li><code>flatMapLatest</code> 取消旧 query，但底层 HTTP 是否真正取消需 repository 支持。</li><li>结果携带 query/tab/generation，旧结果无法写入新状态。</li><li>每个 Tab 是否保留独立结果取决于产品；可用 map&lt;Tab,TabState&gt;，但需内存预算。</li><li>SavedState 保存 query/tab/必要 cursor，不保存整页大量结果；进程恢复从 cache/repository 重建。</li></ul>
+
+<h3>5.4 Compose 互操作与生命周期</h3>
+<pre><code>composeView.setViewCompositionStrategy(
+    ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed
+)
+composeView.setContent {
+    val state by viewModel.state.collectAsStateWithLifecycle()
+    SearchTabContent(state, onAction = viewModel::dispatch)
+}</code></pre>
+<p>Fragment view lifecycle 与 Fragment lifecycle 不同；错误策略会导致 composition 在 onDestroyView 后仍存活。Navigation 和 Activity Result 通过事件/launcher 处理，不把 Activity 引用放入 ViewModel。</p>
+
+<h3>5.5 Lazy 列表与重组</h3>
+<pre><code>LazyColumn {
+    items(
+        items = state.items,
+        key = { it.stableId },
+        contentType = { it.type }
+    ) { item -&gt;
+        SearchResultRow(
+            item = item,
+            onClick = remember(item.stableId) { { onOpen(item.stableId) } }
+        )
+    }
+}</code></pre>
+<ul><li>稳定 key 保持 item identity；index 作为 key 会让插入/排序引发状态错位。</li><li>只向 Row 传必要 immutable model，避免整个 screen state 变化导致所有 Row 重组。</li><li>图片提供固定尺寸和缓存；富文本 parse 在后台或预处理。</li><li>分页 append 与 refresh 状态分离，避免 footer 更新影响全部 item。</li></ul>
+
+<h3>5.6 Telemetry 兼容</h3>
+<p>迁移不能让指标“变好”只是因为事件少报。定义统一 semantic event，由旧 View 和 Compose adapter 发送同一 schema；去重 key 包含 session/query/tab/result impression。页面曝光应基于可见性，不是 Composable 被调用。</p>
+
+<h3>5.7 性能实验</h3>
+<table><tr><th>场景</th><th>指标</th><th>工具</th></tr><tr><td>Cold open</td><td>TTFD、首个结果</td><td>Macrobenchmark、trace</td></tr><tr><td>快速输入</td><td>取消率、重复请求、主线程</td><td>fake clock、network inspector</td></tr><tr><td>滚动 100+ 结果</td><td>jank、frame time、GC</td><td>JankStats/Perfetto</td></tr><tr><td>Tab 切换</td><td>state restore、重复 fetch</td><td>UI test + telemetry</td></tr><tr><td>进程死亡</td><td>query/tab 恢复、无崩溃</td><td>Don't keep activities / instrumentation</td></tr></table>
+
+<h3>5.8 Rollout 与回滚</h3>
+<p>按 Tab 或用户 flight，而不是随机混用同一页面的多个实现。监控 crash/ANR、search success、zero-result、TTFD、jank 和 telemetry volume。Feature flag 必须能在不发版情况下回旧 View；数据库/schema 改动需保持双读兼容。</p>
+
+<h3>5.9 口述版本</h3>
+<div class="card good">我没有把 Outlook Search 当成一次 UI 重写，而是用 strangler strategy 渐进迁移。先把 Java/View 中分散的 query、tab 和 result 抽成 Kotlin domain/repository 和单向 state，再让旧 UI 与 Compose 共用同一状态真源，随后按 Tab 通过 ComposeView 替换。搜索用 debounce、flatMapLatest 和 generation 解决旧请求晚到；列表用稳定 key、细粒度 state 和后台预处理控制 jank。旧新路径发送同一 telemetry schema，并在 feature flag 下比较首屏、滚动、错误和请求重复，确保指标改善不是漏报造成。</div>
+</section><div class="chapter-nav"><a href="05-weak.html">← 上一章</a><a href="07-runtime.html">下一章 →</a></div></main></div>
+</body></html>

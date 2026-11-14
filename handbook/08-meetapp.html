@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>7. Teams MeetApp：AI 会议平台｜简历项目与技术面试学习手册</title><style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#11243b;--text:#e8f0fa;--muted:#9fb1c7;--blue:#55b8ff;--cyan:#59e1d3;--orange:#ffbe6b;--red:#ff7d91;--green:#79e29d;--line:#24405f;--code:#050b13}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#07111f,#0a1627 48%,#07111f);color:var(--text);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{padding:64px max(24px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 75% 10%,#174b6b66,transparent 35%)}
+h1{font-size:clamp(34px,6vw,68px);line-height:1.06;margin:0 0 18px;max-width:950px}.lead{font-size:20px;color:#c5d5e7;max-width:900px}.tag{display:inline-block;padding:5px 10px;border:1px solid #39719d;border-radius:999px;color:#bfe4ff;margin:4px 5px 4px 0;font-size:13px}
+.layout{max-width:1180px;margin:auto;display:grid;grid-template-columns:260px 1fr;gap:32px;padding:30px 24px 100px}nav{position:sticky;top:18px;height:max-content;background:#0b1828dd;border:1px solid var(--line);border-radius:14px;padding:16px;backdrop-filter:blur(12px)}nav a{display:block;color:var(--muted);text-decoration:none;padding:7px 8px;border-radius:7px;font-size:14px}nav a:hover{background:#16304b;color:white}
+main{min-width:0}section{min-height:calc(100vh - 60px);margin:0 0 42px;padding:30px;background:linear-gradient(145deg,#0b1828e8,#102239e8);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 45px #0004;scroll-margin-top:20px;break-before:page;page-break-before:always;break-after:page;page-break-after:always}main section:first-child{break-before:auto;page-break-before:auto}h2{font-size:32px;margin:0 0 16px;border-bottom:1px solid var(--line);padding-bottom:10px}h3{font-size:22px;color:#cceaff;margin:28px 0 9px}h4{font-size:17px;color:var(--cyan);margin:20px 0 7px}p,li{color:#c8d5e5}.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kpi{border-left:4px solid var(--blue)}.warn{border-left:4px solid var(--orange)}.danger{border-left:4px solid var(--red)}.good{border-left:4px solid var(--green)}
+code{background:#10243a;color:#bfe7ff;padding:2px 5px;border-radius:5px}pre{background:var(--code);border:1px solid #1d3956;border-radius:12px;padding:18px;overflow:auto;line-height:1.48;color:#d8e9ff;font-size:13px}pre code{background:none;padding:0}.story{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--line)}.story>div{padding:10px}.story .label{color:var(--cyan);font-weight:700}.q{border-left:3px solid #7c7cff;padding:8px 14px;margin:10px 0;background:#101d32}.answer{color:#9fd4ff}.todo{color:#ffd18d;font-weight:700}.pill{font-size:12px;border:1px solid #456581;border-radius:20px;padding:2px 8px;color:#b6d9f4}.mermaid{font-family:ui-monospace,monospace;white-space:pre-wrap;background:#07101c;padding:16px;border-radius:10px;color:#a8dcff}.check li{margin:7px 0}.small{font-size:13px;color:var(--muted)}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}th{background:#15304a;color:#d9efff}details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#0b1727}summary{cursor:pointer;font-weight:700;color:#d8edff}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{position:relative;top:0}.grid{grid-template-columns:1fr}.story{grid-template-columns:1fr}.story .label{padding-bottom:0}section{padding:20px;min-height:auto}}
+@media print{@page{size:A4;margin:14mm}body{background:white;color:#111}.layout{display:block;max-width:none;padding:0}header{break-after:page;page-break-after:always;padding:20mm 10mm}nav{display:none}section{display:block;min-height:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:white;break-before:page;page-break-before:always;break-after:page;page-break-after:always}.card,details{background:white;border-color:#bbb}p,li,.small{color:#222}h1,h2,h3,h4{color:#111}pre{white-space:pre-wrap;color:#111;background:#f4f4f4;font-size:9px}.tag{color:#111}table{font-size:10px}}
+</style>
+<style>
+body{min-height:100vh}.layout{grid-template-columns:250px minmax(0,1fr)}
+main section{display:block!important;min-height:calc(100vh - 60px);margin:0;padding:30px}
+.chapter-nav{display:flex;justify-content:space-between;gap:12px;margin:24px 0 0}.chapter-nav a,.home-link{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:9px;color:#bfe4ff;text-decoration:none;background:#10243a}.chapter-nav a:hover,.home-link:hover{background:#173653}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{display:none}main section{padding:20px}}
+</style></head><body>
+<header><a class="home-link" href="index.html">← 返回目录</a><h1>7. Teams MeetApp：AI 会议平台</h1><p class="lead">简历项目与技术面试学习手册 · 独立章节版</p></header>
+<div class="layout"><nav><a href="index.html">目录首页</a><a href="01-rules.html">0. 怎样把项目讲成高级工程故事</a><a href="02-realtime.html">1. Realtime Voice：WebSocket → WebRTC</a><a href="03-cold.html">2. Voice 冷启动与连接性能治理</a><a href="04-kotlin.html">3. Kotlin：可讲明白的 Warmup + Join 完整示例</a><a href="05-weak.html">4. 弱网、网络切换与恢复</a><a href="06-compose.html">5. Outlook Search：Java/View → Kotlin/Compose</a><a href="07-runtime.html">6. OCM Runtime：可靠性、图片、渲染与 Context Pipeline</a><a href="08-meetapp.html">7. Teams MeetApp：AI 会议平台</a><a href="09-voice.html">8. Cortana / PME：语音助手从 POC 到 GA</a><a href="10-build.html">9. SharePoint BuildXL：大规模构建基础设施</a><a href="11-email-agent.html">10. Mobile Copilot Email Action Agent</a><a href="12-drill.html">11. 面试拷打题库</a><a href="13-plan.html">12. 建议学习顺序</a></nav><main><section id="meetapp"><h2>7. Teams MeetApp：AI 会议平台</h2>
+<div class="story"><div class="label">背景</div><div>会议数据来自 Graph、Substrate、conversation/thread 和 insights 等多源。产品要在 Teams Desktop 中提供 Upcoming/Recent/Missed、Recap、AI Tasks、陌生人洞察和跨会议摘要，但不同数据源的 ID、权限、时间范围和一致性模型不同。</div></div>
+<div class="story"><div class="label">Owner 范围</div><div>客户端数据与导航架构、API adapter、统一 domain model、Insight Builder、Recap deep link、Copilot streaming 入口、性能 telemetry 和调试工具。</div></div>
+
+<h3>7.1 数据架构</h3>
+<div class="mermaid">Graph Calendar ─┐
+Substrate Meetings ─┼→ Source Adapters → Normalizer → Meeting Identity Resolver
+Conversation API ───┤                                      ↓
+Insight/Tasks ──────┘                              Canonical Meeting Model
+                                                          ↓
+                              Cache / Classification / Insight Builder
+                                      ↓                ↓
+                           Upcoming/Recent/Missed     Recap/Copilot</div>
+<pre><code>type MeetingKey = {
+  tenantId: string;
+  organizerId?: string;
+  threadId?: string;
+  joinUrlHash?: string;
+  startTime: number;
+};
+
+type CanonicalMeeting = {
+  key: MeetingKey;
+  title: string;
+  startTime: number;
+  endTime: number;
+  attendees: Attendee[];
+  sourceVersions: Record&lt;Source, string&gt;;
+  permissions: MeetingPermissions;
+  recap?: RecapAvailability;
+  insights: MeetingInsights;
+};</code></pre>
+<p><b>Identity resolution：</b>不能只用 subject+time 去重。优先 thread/meeting id；缺失时使用 join URL hash、organizer、时间容差等组合，并保留 confidence。误合并会把 A 会议摘要显示到 B 会议，比重复展示更严重，因此低置信度宁可不合并。</p>
+
+<h3>7.2 分类与一致性</h3>
+<table><tr><th>视图</th><th>规则示例</th><th>边界</th></tr><tr><td>Upcoming</td><td>endTime 尚未过去，按 start 排序</td><td>跨时区、全天事件、取消/移动会议</td></tr><tr><td>Recent</td><td>过去 N 天内且用户有访问权</td><td>90 天扩展、迟到的 recap/recording</td></tr><tr><td>Missed</td><td>受邀但未参加，并排除取消/无意义短会</td><td>参会信号延迟、跨设备加入</td></tr></table>
+<p>多源数据最终一致：Calendar 先到，Recap/Tasks 后到。UI 需要 progressive enrichment，不能等待所有 source；但每次 patch 必须基于 meeting key 和 source version，防止旧请求晚到覆盖新数据。</p>
+<pre><code>function applyPatch(current: CanonicalMeeting, patch: MeetingPatch) {
+  const known = current.sourceVersions[patch.source];
+  if (known &amp;&amp; compareVersion(patch.version, known) &lt;= 0) return current;
+  return {
+    ...mergeBySource(current, patch),
+    sourceVersions: { ...current.sourceVersions, [patch.source]: patch.version }
+  };
+}</code></pre>
+
+<h3>7.3 Copilot 与 CrossMeetingCatchUp</h3>
+<p>用户选择多个会议后，客户端构造结构化 selection，不直接拼大段 prompt。服务端重新鉴权，获取 transcript/notes/tasks，再生成跨会议摘要。流式回答中的每个引用应保留 meeting provenance，用户点击可回到对应 Recap。</p>
+<div class="mermaid">Selected Meetings
+ → Permission Revalidation
+ → Transcript/Notes/Tasks Fetch
+ → Per-meeting normalization and token budget
+ → Cross-meeting synthesis
+ → Streaming blocks + citations
+ → Client reducer / cancellation / retry</div>
+<h4>Prompt 与上下文取舍</h4><ul><li>先按会议生成结构化 facts，再跨会议归并，降低长上下文混淆。</li><li>按用户问题选择 transcript/notes/tasks，不默认加载全部内容。</li><li>敏感会议、外部租户和无权限 recording 必须在模型调用前过滤。</li><li>引用来源与生成文本分离，避免模型伪造 meeting link。</li></ul>
+
+<h3>7.4 Streaming 与取消</h3>
+<pre><code>sealed interface CatchUpState {
+  data object Idle : CatchUpState
+  data class Loading(val requestId: String) : CatchUpState
+  data class Streaming(val requestId: String, val blocks: List&lt;Block&gt;) : CatchUpState
+  data class Completed(val blocks: List&lt;Block&gt;) : CatchUpState
+  data class Failed(val kind: ErrorKind, val partial: List&lt;Block&gt;) : CatchUpState
+}
+</code></pre>
+<p>用户改变 selection 或关闭页面时，通过 requestId 取消旧流；旧 chunk 即使晚到也不能写入新请求。允许保留 partial answer，但 UI 要明确未完成。Retry 必须创建新 request generation，同时可复用已验证的 meeting context cache。</p>
+
+<h3>7.5 导航系统</h3>
+<p>Recap deep link 需要表示 meeting identity、目标 tab（AI Notes/@Mentions/Tasks/Recordings）和 fallback。不能把短 URL 字符串散落在组件中；应由 RouteBuilder 统一编码，Resolver 根据 host capability、meeting type 和权限选择内部 route、web fallback 或错误页。</p>
+<div class="q"><b>拷打：为什么导航也算架构难点？</b><div class="answer">跨 host、channel meeting、短链和不同 Recap 能力会造成组合爆炸。集中 route contract 才能版本化、测试和降级，否则 UI 组件各自拼 URL，生产问题难以定位。</div></div>
+
+<h3>7.6 性能与调试工具</h3>
+<p>把一次用户打开页面分成 navigation、shell mount、cache hydrate、calendar fetch、insight fetch、classification、first render、enrichment complete。每个 span 带 correlationId、meeting count、source、cache hit 和 host version。</p>
+<pre><code>type PerfEvent = {
+  correlationId: string;
+  stage: 'navigation'|'cache'|'calendar'|'insights'|'render';
+  startMs: number;
+  durationMs: number;
+  success: boolean;
+  errorClass?: string;
+};</code></pre>
+<p>毫秒级 Debug Tool 使用 ring buffer，支持过滤、导出和脱敏。生产日志不能记录标题、参会人或摘要正文。内存泄漏重点检查订阅未释放、全局 store 保留 meeting objects、定时器和 streaming listener。</p>
+
+<h3>7.7 Rollout 与测试</h3>
+<ul><li>Feature flag 按 host/version/tenant 分层；旧路由和旧数据流保留 kill switch。</li><li>Contract tests 覆盖 Graph/Substrate schema 变化；golden tests 覆盖分类和 route。</li><li>故障注入：某一 source 超时、权限撤销、迟到 patch、重复 meeting、stream 中断、账号切换。</li><li>指标：first render、enrichment latency、navigation success、dedupe conflict、Copilot completion、citation click、memory。</li></ul>
+
+<h3>7.8 口述版本</h3>
+<div class="card good">MeetApp 的核心难点不是做会议列表，而是把多个最终一致的数据源合成稳定的会议实体，并让 Recap 和 Copilot 都基于同一个 identity、权限和导航 contract。我从 source adapter、canonical model、versioned patch 和分类 pipeline 搭起数据层；页面先用 cache/calendar 快速首屏，再渐进补齐 insights。CrossMeetingCatchUp 使用结构化会议 selection、服务端重新鉴权和带 provenance 的 streaming blocks。为了定位生产延迟，我建立 correlation span 和脱敏日志工具，把导航、API、分类和渲染串起来。设计取舍是宁可低置信度不合并会议，也不冒错误合并导致数据泄露的风险。</div>
+</section><div class="chapter-nav"><a href="07-runtime.html">← 上一章</a><a href="09-voice.html">下一章 →</a></div></main></div>
+</body></html>

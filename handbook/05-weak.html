@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>4. 弱网、网络切换与恢复｜简历项目与技术面试学习手册</title><style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#11243b;--text:#e8f0fa;--muted:#9fb1c7;--blue:#55b8ff;--cyan:#59e1d3;--orange:#ffbe6b;--red:#ff7d91;--green:#79e29d;--line:#24405f;--code:#050b13}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#07111f,#0a1627 48%,#07111f);color:var(--text);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{padding:64px max(24px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 75% 10%,#174b6b66,transparent 35%)}
+h1{font-size:clamp(34px,6vw,68px);line-height:1.06;margin:0 0 18px;max-width:950px}.lead{font-size:20px;color:#c5d5e7;max-width:900px}.tag{display:inline-block;padding:5px 10px;border:1px solid #39719d;border-radius:999px;color:#bfe4ff;margin:4px 5px 4px 0;font-size:13px}
+.layout{max-width:1180px;margin:auto;display:grid;grid-template-columns:260px 1fr;gap:32px;padding:30px 24px 100px}nav{position:sticky;top:18px;height:max-content;background:#0b1828dd;border:1px solid var(--line);border-radius:14px;padding:16px;backdrop-filter:blur(12px)}nav a{display:block;color:var(--muted);text-decoration:none;padding:7px 8px;border-radius:7px;font-size:14px}nav a:hover{background:#16304b;color:white}
+main{min-width:0}section{min-height:calc(100vh - 60px);margin:0 0 42px;padding:30px;background:linear-gradient(145deg,#0b1828e8,#102239e8);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 45px #0004;scroll-margin-top:20px;break-before:page;page-break-before:always;break-after:page;page-break-after:always}main section:first-child{break-before:auto;page-break-before:auto}h2{font-size:32px;margin:0 0 16px;border-bottom:1px solid var(--line);padding-bottom:10px}h3{font-size:22px;color:#cceaff;margin:28px 0 9px}h4{font-size:17px;color:var(--cyan);margin:20px 0 7px}p,li{color:#c8d5e5}.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kpi{border-left:4px solid var(--blue)}.warn{border-left:4px solid var(--orange)}.danger{border-left:4px solid var(--red)}.good{border-left:4px solid var(--green)}
+code{background:#10243a;color:#bfe7ff;padding:2px 5px;border-radius:5px}pre{background:var(--code);border:1px solid #1d3956;border-radius:12px;padding:18px;overflow:auto;line-height:1.48;color:#d8e9ff;font-size:13px}pre code{background:none;padding:0}.story{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--line)}.story>div{padding:10px}.story .label{color:var(--cyan);font-weight:700}.q{border-left:3px solid #7c7cff;padding:8px 14px;margin:10px 0;background:#101d32}.answer{color:#9fd4ff}.todo{color:#ffd18d;font-weight:700}.pill{font-size:12px;border:1px solid #456581;border-radius:20px;padding:2px 8px;color:#b6d9f4}.mermaid{font-family:ui-monospace,monospace;white-space:pre-wrap;background:#07101c;padding:16px;border-radius:10px;color:#a8dcff}.check li{margin:7px 0}.small{font-size:13px;color:var(--muted)}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}th{background:#15304a;color:#d9efff}details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#0b1727}summary{cursor:pointer;font-weight:700;color:#d8edff}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{position:relative;top:0}.grid{grid-template-columns:1fr}.story{grid-template-columns:1fr}.story .label{padding-bottom:0}section{padding:20px;min-height:auto}}
+@media print{@page{size:A4;margin:14mm}body{background:white;color:#111}.layout{display:block;max-width:none;padding:0}header{break-after:page;page-break-after:always;padding:20mm 10mm}nav{display:none}section{display:block;min-height:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:white;break-before:page;page-break-before:always;break-after:page;page-break-after:always}.card,details{background:white;border-color:#bbb}p,li,.small{color:#222}h1,h2,h3,h4{color:#111}pre{white-space:pre-wrap;color:#111;background:#f4f4f4;font-size:9px}.tag{color:#111}table{font-size:10px}}
+</style>
+<style>
+body{min-height:100vh}.layout{grid-template-columns:250px minmax(0,1fr)}
+main section{display:block!important;min-height:calc(100vh - 60px);margin:0;padding:30px}
+.chapter-nav{display:flex;justify-content:space-between;gap:12px;margin:24px 0 0}.chapter-nav a,.home-link{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:9px;color:#bfe4ff;text-decoration:none;background:#10243a}.chapter-nav a:hover,.home-link:hover{background:#173653}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{display:none}main section{padding:20px}}
+</style></head><body>
+<header><a class="home-link" href="index.html">← 返回目录</a><h1>4. 弱网、网络切换与恢复</h1><p class="lead">简历项目与技术面试学习手册 · 独立章节版</p></header>
+<div class="layout"><nav><a href="index.html">目录首页</a><a href="01-rules.html">0. 怎样把项目讲成高级工程故事</a><a href="02-realtime.html">1. Realtime Voice：WebSocket → WebRTC</a><a href="03-cold.html">2. Voice 冷启动与连接性能治理</a><a href="04-kotlin.html">3. Kotlin：可讲明白的 Warmup + Join 完整示例</a><a href="05-weak.html">4. 弱网、网络切换与恢复</a><a href="06-compose.html">5. Outlook Search：Java/View → Kotlin/Compose</a><a href="07-runtime.html">6. OCM Runtime：可靠性、图片、渲染与 Context Pipeline</a><a href="08-meetapp.html">7. Teams MeetApp：AI 会议平台</a><a href="09-voice.html">8. Cortana / PME：语音助手从 POC 到 GA</a><a href="10-build.html">9. SharePoint BuildXL：大规模构建基础设施</a><a href="11-email-agent.html">10. Mobile Copilot Email Action Agent</a><a href="12-drill.html">11. 面试拷打题库</a><a href="13-plan.html">12. 建议学习顺序</a></nav><main><section id="weak"><h2>4. 弱网、网络切换与恢复</h2>
+<p>恢复不是“捕获异常再重试”，而是分层判断：网络是否可用、DNS/TLS/REST/WebRTC 哪层失败、操作是否幂等、session 是否能 resume、旧 client 是否污染。</p>
+<table><tr><th>层</th><th>典型故障</th><th>策略</th></tr><tr><td>Network</td><td>Wi-Fi→蜂窝、无默认网络</td><td>NetworkCallback + epoch；暂停而非盲重试</td></tr><tr><td>DNS/TLS</td><td>临时解析失败、握手超时</td><td>指数退避+jitter；新连接；限制总预算</td></tr><tr><td>REST setup</td><td>5xx、429、token 失效</td><td>按错误分类；幂等 key；尊重 Retry-After</td></tr><tr><td>WebRTC transport</td><td>ICE disconnected/failed</td><td>短暂 disconnected 给恢复窗口；failed 重建/ICE restart</td></tr><tr><td>Conversation</td><td>transport 恢复但 turn 丢失</td><td>resume token/turn id；服务端去重；UI 明确状态</td></tr></table>
+<div class="q"><b>追问：</b>为什么网络回来后不直接复用旧 client？<div class="answer">因为 transport connected 不等于 media/data channel、credential 和 server routing 都健康。需要 health contract；无法证明健康时重建比幽灵状态更安全。</div></div>
+<div class="q"><b>追问：</b>指数退避为什么加 jitter？<div class="answer">避免大量客户端在网络恢复或服务端重启后同步重试形成 thundering herd。</div></div>
+<h3>4.1 Android 网络模型</h3>
+<p><code>ConnectivityManager.NetworkCallback</code> 产生的是网络能力事件，不是业务请求成功事件。要关注 available/lost/capabilities/link properties，并维护递增的 <code>networkEpoch</code>。同一个 Network 对象的 DNS、路由或 validated 能力也可能变化。</p>
+<pre><code>class NetworkMonitor(context: Context) {
+    private val cm = context.getSystemService(ConnectivityManager::class.java)
+    private val epoch = AtomicLong(0)
+    private val _state = MutableStateFlow(NetworkState.Unavailable)
+    val state: StateFlow&lt;NetworkState&gt; = _state.asStateFlow()
+
+    private val callback = object : ConnectivityManager.NetworkCallback() {
+        override fun onAvailable(network: Network) = publish(network)
+        override fun onCapabilitiesChanged(n: Network, c: NetworkCapabilities) = publish(n, c)
+        override fun onLost(network: Network) {
+            epoch.incrementAndGet()
+            _state.value = NetworkState.Unavailable
+        }
+    }
+
+    private fun publish(network: Network, caps: NetworkCapabilities? = cm.getNetworkCapabilities(network)) {
+        val validated = caps?.hasCapability(NetworkCapabilities.NET_CAPABILITY_VALIDATED) == true
+        val metered = !cm.isActiveNetworkMetered
+        _state.value = NetworkState.Available(network, epoch.incrementAndGet(), validated, metered)
+    }
+}</code></pre>
+<p>示例中的 metered 命名需谨慎：真实代码应直接表达 <code>isMetered</code>，避免布尔反义造成策略错误。网络 callback 也需要在正确生命周期注册/注销。</p>
+
+<h3>4.2 Resume 还是 Rebuild</h3>
+<table><tr><th>条件</th><th>策略</th></tr><tr><td>短暂 disconnected，transport 保持、session 有效</td><td>等待有限 grace period，自恢复</td></tr><tr><td>网络 epoch 改变但服务支持 resume token</td><td>fresh connection + resume，带 lastAckedTurn</td></tr><tr><td>client health 不可证明、DataChannel/socket 半开</td><td>完整 rebuild，不复用旧 client</td></tr><tr><td>账号/tenant/config 改变</td><td>清空所有 session 和 credential，重新建立</td></tr><tr><td>Unknown outcome 的有副作用请求</td><td>query by requestId，不重发新请求</td></tr></table>
+
+<h3>4.3 Turn-level 一致性</h3>
+<pre><code>data class TurnEnvelope(
+    val conversationId: String,
+    val turnId: String,
+    val clientSequence: Long,
+    val requestId: String,
+    val payload: TurnPayload
+)
+
+data class ResumeRequest(
+    val sessionId: String,
+    val lastAckedClientSequence: Long,
+    val lastReceivedServerSequence: Long,
+    val resumeToken: String
+)</code></pre>
+<p>恢复时双方交换最后确认的 sequence，补发缺失的幂等消息。对于不可幂等动作，服务端必须按 requestId 去重。UI reducer 同样拒绝旧 server sequence，避免恢复后字幕或状态倒退。</p>
+
+<h3>4.4 Backoff、Budget 与 Circuit Breaker</h3>
+<ul><li>Exponential backoff 控制单客户端重试；jitter 打散群体。</li><li>Retry budget 限制一次用户动作或 session 的总尝试与总时间。</li><li>Circuit breaker 面向 endpoint/依赖，连续失败后快速失败，半开探测恢复。</li><li>用户主动点击 Retry 可以触发一次受控探测，但不能绕过安全/权限错误。</li><li>后台任务与前台实时会话使用不同预算；实时会话重视延迟，后台重视资源。</li></ul>
+
+<h3>4.5 弱网测试</h3>
+<table><tr><th>注入</th><th>验证</th></tr><tr><td>500ms RTT + 5% loss</td><td>可交互性、buffer、timeout 是否过激</td></tr><tr><td>DNS 首次失败后恢复</td><td>backoff/fresh connection、无无限循环</td></tr><tr><td>Wi-Fi→蜂窝</td><td>epoch 变化、resume/rebuild、无重复 turn</td></tr><tr><td>请求已达服务端后断网</td><td>UnknownOutcome 查询，动作不重复</td></tr><tr><td>服务端 drain/重启</td><td>Retry-After、resume token、thundering herd</td></tr><tr><td>WebSocket 单向半开</td><td>heartbeat/ack 检测，旧 socket 不继续承载业务</td></tr></table>
+
+<h3>4.6 指标与口述</h3>
+<p>指标至少包括 disconnect rate、resume/rebuild success、time-to-recover、retry distribution、budget exhausted、duplicate prevented、lost turn、network/candidate/error taxonomy。分母必须明确：每 session、每 turn 或每受影响用户。</p>
+<div class="card good">我把弱网恢复建模为 transport、session 和 conversation 三层，而不是统一 catch/retry。Android 网络事件维护 network epoch；client 只有在 health、账号、配置和 epoch 都匹配时才可复用。短暂断开给 grace period，网络切换优先 fresh connection + resume，无法证明健康时 rebuild。有副作用请求遇到 unknown outcome 不直接重发，而是按 requestId 查询。整个策略受 retry budget、jitter 和 endpoint breaker 控制，并用 turn sequence 验证恢复后没有重复或倒退。</div>
+</section><div class="chapter-nav"><a href="04-kotlin.html">← 上一章</a><a href="06-compose.html">下一章 →</a></div></main></div>
+</body></html>

@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>1. Realtime Voice：WebSocket → WebRTC｜简历项目与技术面试学习手册</title><style>
+:root{--bg:#07111f;--panel:#0d1b2d;--panel2:#11243b;--text:#e8f0fa;--muted:#9fb1c7;--blue:#55b8ff;--cyan:#59e1d3;--orange:#ffbe6b;--red:#ff7d91;--green:#79e29d;--line:#24405f;--code:#050b13}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(135deg,#07111f,#0a1627 48%,#07111f);color:var(--text);font:16px/1.72 system-ui,-apple-system,"Segoe UI","Microsoft YaHei",sans-serif}
+header{padding:64px max(24px,calc((100vw - 1180px)/2));border-bottom:1px solid var(--line);background:radial-gradient(circle at 75% 10%,#174b6b66,transparent 35%)}
+h1{font-size:clamp(34px,6vw,68px);line-height:1.06;margin:0 0 18px;max-width:950px}.lead{font-size:20px;color:#c5d5e7;max-width:900px}.tag{display:inline-block;padding:5px 10px;border:1px solid #39719d;border-radius:999px;color:#bfe4ff;margin:4px 5px 4px 0;font-size:13px}
+.layout{max-width:1180px;margin:auto;display:grid;grid-template-columns:260px 1fr;gap:32px;padding:30px 24px 100px}nav{position:sticky;top:18px;height:max-content;background:#0b1828dd;border:1px solid var(--line);border-radius:14px;padding:16px;backdrop-filter:blur(12px)}nav a{display:block;color:var(--muted);text-decoration:none;padding:7px 8px;border-radius:7px;font-size:14px}nav a:hover{background:#16304b;color:white}
+main{min-width:0}section{min-height:calc(100vh - 60px);margin:0 0 42px;padding:30px;background:linear-gradient(145deg,#0b1828e8,#102239e8);border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 45px #0004;scroll-margin-top:20px;break-before:page;page-break-before:always;break-after:page;page-break-after:always}main section:first-child{break-before:auto;page-break-before:auto}h2{font-size:32px;margin:0 0 16px;border-bottom:1px solid var(--line);padding-bottom:10px}h3{font-size:22px;color:#cceaff;margin:28px 0 9px}h4{font-size:17px;color:var(--cyan);margin:20px 0 7px}p,li{color:#c8d5e5}.card{background:linear-gradient(145deg,var(--panel),var(--panel2));border:1px solid var(--line);border-radius:14px;padding:20px;margin:14px 0}.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.kpi{border-left:4px solid var(--blue)}.warn{border-left:4px solid var(--orange)}.danger{border-left:4px solid var(--red)}.good{border-left:4px solid var(--green)}
+code{background:#10243a;color:#bfe7ff;padding:2px 5px;border-radius:5px}pre{background:var(--code);border:1px solid #1d3956;border-radius:12px;padding:18px;overflow:auto;line-height:1.48;color:#d8e9ff;font-size:13px}pre code{background:none;padding:0}.story{display:grid;grid-template-columns:120px 1fr;border-top:1px solid var(--line)}.story>div{padding:10px}.story .label{color:var(--cyan);font-weight:700}.q{border-left:3px solid #7c7cff;padding:8px 14px;margin:10px 0;background:#101d32}.answer{color:#9fd4ff}.todo{color:#ffd18d;font-weight:700}.pill{font-size:12px;border:1px solid #456581;border-radius:20px;padding:2px 8px;color:#b6d9f4}.mermaid{font-family:ui-monospace,monospace;white-space:pre-wrap;background:#07101c;padding:16px;border-radius:10px;color:#a8dcff}.check li{margin:7px 0}.small{font-size:13px;color:var(--muted)}table{border-collapse:collapse;width:100%;display:block;overflow:auto}th,td{border:1px solid var(--line);padding:9px 11px;text-align:left;vertical-align:top}th{background:#15304a;color:#d9efff}details{border:1px solid var(--line);border-radius:10px;padding:10px 14px;margin:10px 0;background:#0b1727}summary{cursor:pointer;font-weight:700;color:#d8edff}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{position:relative;top:0}.grid{grid-template-columns:1fr}.story{grid-template-columns:1fr}.story .label{padding-bottom:0}section{padding:20px;min-height:auto}}
+@media print{@page{size:A4;margin:14mm}body{background:white;color:#111}.layout{display:block;max-width:none;padding:0}header{break-after:page;page-break-after:always;padding:20mm 10mm}nav{display:none}section{display:block;min-height:0;margin:0;padding:0;border:0;border-radius:0;box-shadow:none;background:white;break-before:page;page-break-before:always;break-after:page;page-break-after:always}.card,details{background:white;border-color:#bbb}p,li,.small{color:#222}h1,h2,h3,h4{color:#111}pre{white-space:pre-wrap;color:#111;background:#f4f4f4;font-size:9px}.tag{color:#111}table{font-size:10px}}
+</style>
+<style>
+body{min-height:100vh}.layout{grid-template-columns:250px minmax(0,1fr)}
+main section{display:block!important;min-height:calc(100vh - 60px);margin:0;padding:30px}
+.chapter-nav{display:flex;justify-content:space-between;gap:12px;margin:24px 0 0}.chapter-nav a,.home-link{display:inline-block;padding:9px 14px;border:1px solid var(--line);border-radius:9px;color:#bfe4ff;text-decoration:none;background:#10243a}.chapter-nav a:hover,.home-link:hover{background:#173653}
+@media(max-width:850px){.layout{grid-template-columns:1fr}nav{display:none}main section{padding:20px}}
+</style></head><body>
+<header><a class="home-link" href="index.html">← 返回目录</a><h1>1. Realtime Voice：WebSocket → WebRTC</h1><p class="lead">简历项目与技术面试学习手册 · 独立章节版</p></header>
+<div class="layout"><nav><a href="index.html">目录首页</a><a href="01-rules.html">0. 怎样把项目讲成高级工程故事</a><a href="02-realtime.html">1. Realtime Voice：WebSocket → WebRTC</a><a href="03-cold.html">2. Voice 冷启动与连接性能治理</a><a href="04-kotlin.html">3. Kotlin：可讲明白的 Warmup + Join 完整示例</a><a href="05-weak.html">4. 弱网、网络切换与恢复</a><a href="06-compose.html">5. Outlook Search：Java/View → Kotlin/Compose</a><a href="07-runtime.html">6. OCM Runtime：可靠性、图片、渲染与 Context Pipeline</a><a href="08-meetapp.html">7. Teams MeetApp：AI 会议平台</a><a href="09-voice.html">8. Cortana / PME：语音助手从 POC 到 GA</a><a href="10-build.html">9. SharePoint BuildXL：大规模构建基础设施</a><a href="11-email-agent.html">10. Mobile Copilot Email Action Agent</a><a href="12-drill.html">11. 面试拷打题库</a><a href="13-plan.html">12. 建议学习顺序</a></nav><main><section id="realtime"><h2>1. Realtime Voice：WebSocket → WebRTC</h2>
+<div class="story"><div class="label">背景</div><div>旧链路把 PCM/Base64 音频块、控制信号、transcript 等耦合在 SignalR/WebSocket 上。客户端承担采集、buffer、播放和状态推断；TCP 队头阻塞、网络切换、回声/降噪和打断体验都难以系统治理。</div></div>
+<div class="story"><div class="label">你的目标</div><div>主导 Android 端 transport migration，同时保持 shared conversation state、宿主接口和 rollout 可控；最终让用户更快能说、少丢开头、少出现“有字没声”、打断自然、后台和弱网更稳定。</div></div>
+<div class="story"><div class="label">核心设计</div><div>音频走 WebRTC media plane（RTP/Opus、jitter buffer、AEC/NS）；join、mute/unmute、transcript、telemetry 等走 Data Channel/control plane；不同 transport 的物理信号统一映射为 Listening/Speaking/Interrupted 等共享状态。</div></div>
+<div class="mermaid">UI / Shared Voice State
+        ↑
+SydneyRealtimeChatService
+        ↑
+RealtimeChatClient interface
+   ↙                 ↘
+WebSocket Client      WebRTC Client
+                       ├─ Media Channel: mic/speaker/RTP
+                       ├─ Data Channel: control/transcript
+                       ├─ Warmup & session lifecycle
+                       └─ Speaking/FAR/Barge-in handler</div>
+<h3>必须讲清的技术点</h3>
+<table><tr><th>问题</th><th>方案</th><th>Trade-off</th></tr>
+<tr><td>为什么不只替换 socket</td><td>媒体与控制分离；重构状态来源、buffer 和 telemetry 语义</td><td>双栈 rollout 期间复杂度上升，需要清晰抽象边界</td></tr>
+<tr><td>Speaking 如何识别</td><td>WebRTC 不再收到 audio chunk；使用 speaker output level，经阈值、silence window、dead period 转换为状态</td><td>output level 更接近用户实际听到，但受设备、音量和噪声影响</td></tr>
+<tr><td>如何做打断</td><td>把 output speaking、user input、completion 与 server signal 合并成确定性状态机</td><td>阈值太敏感会误打断；太保守则用户感觉迟钝</td></tr>
+<tr><td>为什么旧指标不能直接复用</td><td>WebSocket 起点是 chunk arrival；WebRTC 起点可能是系统实际播放，包含 decode/jitter/playback</td><td>历史趋势断层；需同时上报 transport-specific 与统一业务时间点</td></tr></table>
+<div class="card danger"><b>经历边界：</b>你已说明没有亲自交付 WebRTC 迁移，因此本章用于协议学习、架构分析和原型设计。面试中可以说“系统研究并设计过方案”，不能说“主导生产迁移”或引用并不存在的上线指标。</div>
+<h3>1.1 协议栈全景</h3>
+<div class="mermaid">Application: Conversation / Transcript / Agent State
+├─ Control: WebRTC DataChannel
+│  └─ SCTP → DTLS → ICE/UDP (or TURN relay)
+└─ Media: Audio Track
+   └─ Opus → RTP / RTCP → SRTP → ICE/UDP
+
+Signaling（不属于 WebRTC 标准传输本身）
+└─ HTTPS/WebSocket: token、SDP offer/answer、ICE candidates、session control</div>
+<p><b>最容易答错的一点：</b>WebRTC 没有规定 signaling 必须用什么。客户端仍需通过 HTTPS、WebSocket 或业务服务交换 SDP、ICE candidate、token 与 session metadata。WebRTC 规定的是媒体、连接、安全和数据通道等机制。</p>
+<table><tr><th>协议/组件</th><th>职责</th><th>面试关键词</th></tr>
+<tr><td>SDP</td><td>描述能力与参数，不负责真正传输媒体</td><td>codec、payload type、ICE ufrag/pwd、fingerprint、media direction</td></tr>
+<tr><td>ICE</td><td>收集并检查候选网络路径，选出 candidate pair</td><td>host/srflx/relay、connectivity check、nomination</td></tr>
+<tr><td>STUN</td><td>发现 NAT 映射后的公网地址</td><td>server-reflexive candidate；不是媒体中继</td></tr>
+<tr><td>TURN</td><td>直连失败时中继媒体/数据</td><td>可靠但增加 RTT、成本和带宽</td></tr>
+<tr><td>DTLS</td><td>握手、身份验证和密钥协商</td><td>证书 fingerprint 从 SDP 校验</td></tr>
+<tr><td>SRTP</td><td>加密 RTP/RTCP 媒体</td><td>DTLS-SRTP 导出密钥；防窃听和篡改</td></tr>
+<tr><td>RTP/RTCP</td><td>实时媒体与质量反馈</td><td>sequence/timestamp/SSRC、loss/jitter/RTT</td></tr>
+<tr><td>SCTP/DataChannel</td><td>可靠或部分可靠的应用数据</td><td>ordered/unordered、maxRetransmits、stream</td></tr></table>
+
+<h3>1.2 从点击 Voice 到听到第一句话</h3>
+<ol><li><b>业务鉴权：</b>客户端取得短期 token、session 配置、feature flags 和服务 endpoint。</li><li><b>创建 PeerConnection/媒体 client：</b>初始化 audio device module、采集/播放线程与 peer connection factory。</li><li><b>本地媒体：</b>创建 audio track，设置 send/receive direction；Android 申请/占用音频焦点并配置 communication mode。</li><li><b>SDP 协商：</b>一方 createOffer/setLocalDescription，业务 signaling 发送 offer；另一方 setRemoteDescription/createAnswer，再返回 answer。</li><li><b>ICE gathering：</b>产生 host、STUN 获得的 srflx、TURN relay candidates；Trickle ICE 可边收集边发送，减少等待。</li><li><b>Connectivity checks：</b>候选对之间进行 STUN Binding checks；ICE controller 选择并 nominate 最佳可用 pair。</li><li><b>DTLS：</b>在选定路径上握手，验证 SDP fingerprint，并导出 SRTP key。</li><li><b>Media/Data ready：</b>RTP/Opus 开始收发；DataChannel 进入 open；业务 SetupAndJoin 完成。</li><li><b>用户可感知 ready：</b>不能只以 ICE connected 判断，还需 mic、media session、server conversation 都 ready。</li><li><b>FAR：</b>服务端生成回答，经网络、jitter buffer、decode 和 AudioTrack 输出；speaker output level 才接近“用户实际听到”。</li></ol>
+<div class="q"><b>追问：ICE connected 是否等于通话可用？</b><div class="answer">不等于。它只说明候选路径 connectivity check 成功。DTLS、SRTP、DataChannel、服务端 join、麦克风权限、audio route 和实际双向媒体仍可能失败，因此需要分层 readiness。</div></div>
+
+<h3>1.3 SDP Offer/Answer 该会到什么程度</h3>
+<pre><code>v=0
+o=- 461173305279927 2 IN IP4 127.0.0.1
+s=-
+t=0 0
+a=group:BUNDLE 0 1
+m=audio 9 UDP/TLS/RTP/SAVPF 111
+c=IN IP4 0.0.0.0
+a=mid:0
+a=sendrecv
+a=rtpmap:111 opus/48000/2
+a=fmtp:111 minptime=10;useinbandfec=1
+a=ice-ufrag:abcd
+a=ice-pwd:long-random-secret
+a=fingerprint:sha-256 12:34:...
+a=setup:actpass
+m=application 9 UDP/DTLS/SCTP webrtc-datachannel
+a=mid:1
+a=sctp-port:5000</code></pre>
+<ul><li><code>m=audio</code> 宣告音频 media section；111 是动态 payload type，对应 Opus。</li><li><code>BUNDLE</code> 允许多个 media section 复用一条 ICE/DTLS transport。</li><li><code>sendrecv</code> 表示双向；也可能是 sendonly/recvonly/inactive。</li><li><code>ice-ufrag/pwd</code> 用于 ICE connectivity check 鉴权，不是用户凭据。</li><li><code>fingerprint</code> 绑定 DTLS 证书，防止中间人替换。</li><li><code>application + SCTP</code> 描述 DataChannel。</li></ul>
+<p><b>Renegotiation：</b>添加 track、改变方向或 ICE restart 可能触发新 offer/answer。双方同时发 offer 会产生 glare；常见处理是 perfect negotiation pattern 或由一侧固定承担 offerer。</p>
+
+<h3>1.4 ICE、NAT、STUN、TURN</h3>
+<h4>Candidate 类型</h4><ul><li><b>host：</b>设备本地接口地址，速度最好，但跨 NAT 常不可达。</li><li><b>server-reflexive：</b>STUN 看到的公网映射地址，允许 NAT traversal。</li><li><b>peer-reflexive：</b>connectivity check 中发现的新映射。</li><li><b>relay：</b>TURN 中继地址，成功率高但成本和 RTT 更高。</li></ul>
+<p>ICE 不是简单“按 host→srflx→relay 尝试”。它构造 candidate pair、计算 priority、并行/分批进行 STUN check，最后 nomination。企业防火墙、对称 NAT、UDP 被禁时往往需要 TURN/TCP 或 TURN/TLS。</p>
+<div class="q"><b>追问：为什么不永远走 TURN？</b><div class="answer">TURN 提高可达性，但所有流量经过中继，增加 RTT、服务器带宽成本、区域容量和故障面。通常优先直连，必要时 relay；对企业网络可调整候选策略。</div></div>
+<h4>网络切换</h4><p>Wi-Fi→蜂窝会改变本地网络与 NAT 映射。实现可选择等待 ICE 自恢复、ICE restart、或重建 peer/session。决策依据包括断开持续时间、服务端是否支持 resume、旧 DataChannel 状态、凭据有效期和用户是否仍在通话。</p>
+
+<h3>1.5 RTP、RTCP 与 Opus</h3>
+<ul><li><b>RTP sequence number：</b>检测丢包和重排；不能单独代表播放顺序。</li><li><b>RTP timestamp：</b>按媒体时钟采样，用于播放时间线和 jitter 计算，不是 wall clock。</li><li><b>SSRC：</b>标识同步源；切换源或重连时可能改变。</li><li><b>RTCP：</b>报告 packet loss、jitter、RTT、接收统计；发送/接收端用它调整码率和诊断。</li><li><b>Opus：</b>适合语音和音乐，支持可变码率、DTX 和 in-band FEC；参数需要在质量、带宽、CPU 和延迟间权衡。</li><li><b>Jitter buffer：</b>吸收网络抖动；更大 buffer 更稳但增加交互延迟，实时对话必须动态平衡。</li><li><b>NACK/重传：</b>对很短实时窗口有用；太晚到达的包即使重传也无播放价值。</li><li><b>FEC/PLC：</b>前向纠错和丢包隐藏可改善小比例丢包，但会增加码率或降低保真。</li></ul>
+<div class="q"><b>追问：WebRTC 为什么比 WebSocket 更适合音频？</b><div class="answer">不是因为 UDP 永远更快，而是媒体栈同时提供 RTP 时间语义、jitter buffer、丢包反馈、拥塞/码率适配、AEC/NS、设备路由和 NAT traversal。WebSocket/TCP 保序会让单包丢失阻塞后续音频，实时媒体更重视及时性而非每字节必达。</div></div>
+
+<h3>1.6 Data Channel 设计</h3>
+<p>DataChannel 基于 SCTP over DTLS。可配置 ordered/unordered 和可靠性。控制消息不能全部使用同一策略：</p>
+<table><tr><th>消息</th><th>建议</th><th>原因</th></tr><tr><td>Join / policy / final transcript</td><td>ordered + reliable</td><td>不能乱序或丢失</td></tr><tr><td>Mic mute/unmute</td><td>ordered + reliable，带 monotonically increasing version</td><td>最终状态必须一致，旧消息不能覆盖新状态</td></tr><tr><td>实时音量/typing indicator</td><td>unordered + partial reliability</td><td>旧值过期，无需阻塞新值</td></tr><tr><td>Heartbeat</td><td>可丢、带 timestamp/sequence</td><td>用于活性判断而非业务事实</td></tr></table>
+<p>所有业务消息应有 schema version、sessionId、turnId、messageId、timestamp，并定义去重与未知字段兼容。DataChannel open 不代表业务 join 完成。</p>
+
+<h3>1.7 对照整理文档：Android 迁移的十个具体模块</h3>
+<ol><li><b>Early Connection / Warmup / SetupAndJoin：</b>把可预测的 SDK、token、client、DataChannel 初始化前移，合并 create/configure/join 往返。</li><li><b>Warmup failure detection：</b><code>isWarmUpFailed()</code> 或更完整 health contract；失败、MediaStreamSession disconnected 后不可复用，Service 重建 client。</li><li><b>Rewarmup after close：</b>session 关闭后按场景重新预热，但必须控制电量、TTL 和无效命中。</li><li><b>Audio Burst buffering：</b>连接未 fully ready 时缓存用户最初语音，避免第一句话开头丢失；需要最大时长、内存上限和超时丢弃策略。</li><li><b>Data Channel warmup/reuse：</b>提前初始化 join channel，减少真实点击时重复建链。</li><li><b>Mute/unmute control：</b>通过 DataChannel 明确通知服务端，不能用“没有音频包”猜测用户 mute。</li><li><b>Speaking/FAR：</b>WebRTC 不经过旧 audio chunk callback，使用 ACS speaker output level 映射 Speaking 和 First Audio Render。</li><li><b>Barge-in：</b>处理 volume threshold、silence、completion dead period 和异常 audio-start，避免 bot 刚结束又被误判 speaking。</li><li><b>Background/Mixed Modality：</b>RealtimeKeeper 保持会话，处理后台限制、audio focus、通知、Voice/Text context continuity。</li><li><b>Reconnect/Error Taxonomy：</b>ACS reconnect、fresh REST connection、DNS backoff、NetworkUnavailable 分类，并映射统一 CIE error。</li></ol>
+
+<h3>1.8 Android 音频系统必须会答</h3>
+<ul><li><b>Audio focus：</b>请求 transient/exclusive 或 communication 合适的 focus；处理其他应用抢占、duck 和 loss。</li><li><b>Audio mode：</b><code>MODE_IN_COMMUNICATION</code> 影响 AEC、路由和音频处理；进入退出必须成对。</li><li><b>Route：</b>speaker、earpiece、有线、Bluetooth SCO/LE Audio；切换会改变采样、延迟和设备状态。</li><li><b>Permissions：</b>RECORD_AUDIO；后台持续采集通常需要 foreground service、明确通知和平台政策合规。</li><li><b>AEC/NS/AGC：</b>硬件、系统、WebRTC 软件处理可能重复；双重处理会产生失真，必须明确谁拥有处理链。</li><li><b>生命周期：</b>Activity 销毁不应直接终止 session；但用户退出、账号切换和权限撤销必须立刻释放 mic。</li></ul>
+
+<h3>1.9 Speaking、FAR 与 Barge-in 状态机</h3>
+<pre><code>Idle
+ ├─ userStart → Connecting
+Connecting
+ ├─ mediaReady + joined → Listening
+ └─ timeout/error → Failed
+Listening
+ ├─ userAudio → UserSpeaking
+ └─ serverResponseStarted → WaitingForBotAudio
+WaitingForBotAudio
+ ├─ outputLevel &gt; threshold for debounce → BotSpeaking + FAR
+ └─ responseCompleted without audio → Completed/NoAudioError
+BotSpeaking
+ ├─ userSpeechDetected → Interrupting
+ ├─ silenceWindow elapsed → BotSilent
+ └─ completion → CompletionDeadPeriod
+Interrupting
+ ├─ serverAck + outputSilent → UserSpeaking
+ └─ timeout → forceStopPlayback / recover</code></pre>
+<p>阈值不能只看一次 sample：需要 attack/release window、设备归一化、连续帧 debounce。Completion 后 dead period 防止音频尾巴或缓冲 drain 被误认为新一轮 speaking。FAR 应只在每个 turn 首次真实输出时记录一次。</p>
+
+<h3>1.10 Audio Burst 设计</h3>
+<p>目标是允许用户进入 Voice 后立刻讲话，即使媒体链路尚未 ready。客户端可用环形 buffer 暂存有限 PCM/encoded frames，ready 后快速 flush。</p>
+<table><tr><th>问题</th><th>设计</th></tr><tr><td>缓存多久</td><td>按产品容忍和内存预算设上限，例如 1–3 秒；超限丢最旧或停止并提示</td></tr><tr><td>时序</td><td>每帧带 monotonic timestamp/sequence，服务端可重建顺序</td></tr><tr><td>重复</td><td>切换 live stream 时以 sequence boundary 防止 burst 与实时帧重复</td></tr><tr><td>隐私</td><td>仅在用户明确进入 Voice 后采集；失败/取消立即清空，不落盘</td></tr><tr><td>错误分类</td><td>AudioBurstTimeout 与 DataChannelInitTimeout 分开，便于定位</td></tr></table>
+
+<h3>1.11 可靠性与故障排查 Runbook</h3>
+<table><tr><th>症状</th><th>优先检查</th><th>常见根因</th></tr><tr><td>一直 Connecting</td><td>token、SDP、ICE gathering/check、TURN、DTLS、join spans</td><td>企业网 UDP blocked、TURN 不可达、token 过期、signaling 丢消息</td></tr><tr><td>有文字没声音</td><td>remote track、RTP inbound、jitter/decode、audio route/output level</td><td>track 未订阅、route 错、音量零、decoder/SDK regression</td></tr><tr><td>听得到但服务听不到</td><td>permission、mic track、audio level、outbound RTP、mute control</td><td>权限撤销、mic 被占用、mute 状态错、foreground restriction</td></tr><tr><td>第一句话被吞</td><td>click→mediaReady、burst buffer、flush boundary</td><td>用户早说、buffer 未启用、DataChannel/join 慢</td></tr><tr><td>打断慢</td><td>user speech detection、interrupt signal、server ack、output drain</td><td>阈值/指标起点不一致、buffer 太深、控制消息阻塞</td></tr><tr><td>切网后不恢复</td><td>network epoch、ICE state、selected pair、resume/rejoin</td><td>旧 client stale、ICE restart 未触发、server routing 丢 session</td></tr></table>
+
+<h3>1.12 Telemetry 字典</h3>
+<ul><li><b>客户端阶段：</b>click、client_create、warmup_start/end、credential_ready、offer/answer、first_candidate、ice_connected、dtls_connected、datachannel_open、join_complete、audio_ready。</li><li><b>媒体质量：</b>RTT、jitter、packet loss、concealed samples、jitter buffer delay、audio level、selected candidate type、TURN usage。</li><li><b>用户体验：</b>click-to-ready、first-user-audio accepted、FAR、interruption latency、no-audio、session duration、unexpected disconnect。</li><li><b>维度：</b>host app、app/sdk version、device tier、OS、network type、candidate pair、region、feature flight；避免记录 PII。</li></ul>
+<p><b>语义原则：</b>每个时间点注明发生层级：service emitted、client received、media decoded、system rendered 或 user-perceived proxy。名称相同但层级不同的数据不能直接比较。</p>
+
+<h3>1.13 协议级拷打与标准答案</h3>
+<details><summary>WebRTC 一定使用 UDP 吗？</summary><p>不一定。优先 UDP，但可通过 TURN/TCP 或 TURN/TLS 穿越受限网络。DataChannel 也不是 TCP，而是 SCTP over DTLS over ICE transport。</p></details>
+<details><summary>DTLS 和 SRTP 分别做什么？</summary><p>DTLS 负责握手、对端证书 fingerprint 验证与密钥导出；SRTP 使用导出的密钥保护 RTP/RTCP 媒体。DataChannel 数据本身在 DTLS 中承载。</p></details>
+<details><summary>为什么 interruption 指标不能直接比较 WebSocket 与 WebRTC？</summary><p>WebSocket 可能从服务端 audio chunk 到达开始计时；WebRTC 的 Speaking 可能来自系统输出 level，已经包含网络、jitter、decode 和 playback。必须使用共同的业务信号或同时保留分层指标。</p></details>
+<details><summary>ICE disconnected 与 failed 有何区别？</summary><p>disconnected 常是暂态，可能自行恢复；failed 表示所有检查路径失败，通常需 ICE restart 或重建。产品还需结合持续时间和网络状态，不能仅凭一次 callback 立即销毁。</p></details>
+<details><summary>为什么 mute 必须发控制消息？</summary><p>没有音频包可能是静音、网络丢包、设备故障或用户未说话。显式 mute 状态让服务端正确管理 turn 和超时；消息需版本化，避免乱序覆盖。</p></details>
+
+<h3>1.14 可防守的口述版本</h3>
+<div class="card good">我没有把 WebRTC 生产迁移描述成个人交付，而是针对 Mobile Copilot Realtime Voice 做了系统架构研究。我的分析重点是：迁移不是把 WebSocket 换成 PeerConnection，而是把音频放到 RTP/SRTP media plane，把 join、mute、transcript 和 telemetry 放到 DataChannel/control plane，并重新定义连接生命周期、Speaking/FAR、打断和指标语义。我重点设计了 warmup 失败不可复用、Audio Burst、网络切换后的 ICE/session recovery，以及分层 telemetry。为了验证理解，我能从 SDP/ICE/DTLS-SRTP 一直讲到 Android audio focus、状态机和故障 runbook，但不会声称拥有未实际交付的生产指标。</div>
+</section><div class="chapter-nav"><a href="01-rules.html">← 上一章</a><a href="03-cold.html">下一章 →</a></div></main></div>
+</body></html>
